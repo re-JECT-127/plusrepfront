@@ -1,7 +1,7 @@
-import logo from "./logo.svg"
 import { useState, useEffect } from "react"
 import "./App.css"
 import postService from "./services/posts"
+import Post from './components/Post'
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -62,15 +62,6 @@ function App() {
         </form>
       </div>
     </body>
-  )
-}
-
-const Post = ({ content }) => {
-  return (
-    <div class="object-box">
-      <h1>TOPIC HERE</h1>
-      <p>{content}</p>
-    </div>
   )
 }
 
