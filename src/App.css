@@ -42,6 +42,7 @@
 .object-box{
 background-color: rgb(255, 255, 255);
 justify-content: space-around;
+flex-direction: column;
 width: 40em;
 height: auto;
 margin: 2em;
