@@ -1,13 +1,21 @@
-import axios from "axios"
-const baseUrl = "http://localhost:3001/api/posts"
+import axios from 'axios'
+const baseUrl = 'http://localhost:3001/api/posts'
+
+let token = null
+
+
+const setToken = (newToken) => {
+  token = `bearer ${newToken}`
+}
 
 const getAll = () => {
-    console.log('GETTING POSTS')
-  const request = axios.get(baseUrl)
+  const config = { headers: { Authorization: token } }
+  const request = axios.get(baseUrl, config)
+
   return request.then((response) => {
-      console.log(response.data)
+    console.log(response.data)
     return response.data
   })
 }
 
-export default { getAll }
+export default { getAll, setToken }
