@@ -4,35 +4,35 @@ import postService from './services/posts'
 import Post from './components/Post'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Profile from './Pages/Profile'
 
 function App() {
   const [posts, setPosts] = useState([])
   const [userData, setUserData] = useState(null)
 
-    //Fetch userData from local storage
-    useEffect(() => {
-      const loggedUserJSON = window.localStorage.getItem('loggedUser')
-      if (loggedUserJSON) {
-        const user = JSON.parse(loggedUserJSON)
-        setUserData(user)
-        postService.setToken(user.token)
-      }
-    }, [])
-  
+  //Fetch userData from local storage
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUserData(user)
+      postService.setToken(user.token)
+    }
+  }, [])
 
   //Fetch all Posts
   useEffect(() => {
-      postService.getAll().then((posts) => {
-        setPosts(posts)
-      })
+    postService.getAll().then((posts) => {
+      setPosts(posts)
+    })
   }, [])
-
 
   //Response when Google loggin success
   const responseSuccessGoogle = (response) => {
     axios({
       method: 'POST',
-      url: 'http://localhost:3001/api/googlelogin',
+      url: '/api/googlelogin',
       data: { tokenId: response.tokenId },
     }).then((response) => {
       postService.setToken(response.data.token)
@@ -95,6 +95,11 @@ function App() {
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
       </div>
+      <Router>
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
     </body>
   )
 }
