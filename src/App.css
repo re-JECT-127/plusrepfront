@@ -14,7 +14,7 @@
 .big-box {
   display:flex;
   background-color: rgb(249, 249, 249);
-  max-width: 6em;
+  max-width: 65em;
   height: 98vh;
   border: 15px;
   padding: 5px;
