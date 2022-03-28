@@ -5,14 +5,14 @@
   margin: 25px;
   width: auto;
   height: auto;
-  background-color: wheat;
+  background-color: rgb(41, 43, 40);
   /* Center child horizontally*/
   justify-content: center;
 }
 
 .big-box {
   display:flex;
-  background-color: rgb(255, 225, 94);
+  background-color: rgb(162, 205, 240);
   max-width: 60em;
   height: 52em;
   border: 15px;
@@ -24,7 +24,7 @@
   flex:1;
 }
 .register-box {
-  background-color: rgb(255, 185, 128);
+  background-color: rgb(163, 176, 190);
   width: 3col;
   border: 15px;
   padding: 5px;
