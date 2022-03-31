@@ -14,15 +14,15 @@ const PostQuestion = () => {
     crossOrigin="anonymous"
   />
   <link rel="stylesheet" href="profile.css" />
+  <div class="body">
   <div className="container bootstrap snippets bootdey">
     <div className="row">
       <div className="col-md-offset-3 col-md-6 col-xs-12">
         <div className="well well-sm well-social-post">
-          <form>
             <ul className="list-inline" id="list_PostActions">
-              <li className="active">
+
                 <FileInput></FileInput>
-              </li>
+
               <li>
                 <a href="#">Add code</a>
               </li>
@@ -44,11 +44,11 @@ const PostQuestion = () => {
                 <a href="#" className="glyphicon glyphicon-map-marker" />
               </li>
             </ul>
-          </form>
+            </div>
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </>
     )
 }

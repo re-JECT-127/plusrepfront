@@ -12,8 +12,9 @@ const TextForm = () => {
           required
           value={body}
           onChange={(e) => setBody(e.target.value)}
+          rows="10"
         ></textarea>
-        <button>Post</button>
+        <button class="btn btn-primary">Post</button>
     </div>
   );
 }
