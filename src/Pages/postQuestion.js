@@ -1,10 +1,8 @@
 import '../App.css'
 import { useState, useEffect } from 'react'
-import FileInput from '../components/fileInput'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
-import { Navigate, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const PostQuestion = () => {
   const [newPost, setNewPost] = useState('')

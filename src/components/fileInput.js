@@ -16,14 +16,16 @@ class FileInput extends React.Component {
   
     render() {
       return (
+        <div class="main-body">
         <form onSubmit={this.handleSubmit}>
           <label>
             Upload file:
             <input type="file" ref={this.fileInput} />
           </label>
           <br />
-          <button type="submit">Submit</button>
+          <button class="btn btn-primary" type="submit">Submit</button>
         </form>
+        </div>
       );
     }
   }
