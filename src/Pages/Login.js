@@ -30,7 +30,7 @@ function Login() {
   const responseSuccessGoogle = (response) => {
     axios({
       method: 'POST',
-      url: '/api/googlelogin',
+      url: 'http://localhost:3001/api/googlelogin',
       data: { tokenId: response.tokenId },
     }).then((response) => {
       postService.setToken(response.data.token)

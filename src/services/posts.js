@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/posts'
+const baseUrl = 'http://localhost:3001/api/posts'
 
 let token = null
 
@@ -18,4 +18,12 @@ const getAll = () => {
   })
 }
 
-export default { getAll, setToken }
+const create = (newObject) => {
+  const request = axios.post(baseUrl, newObject)
+  return request.then((response) => response.data)
+}
+
+
+
+
+export default { getAll, setToken, create }
