@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import PostQuestion from './Pages/postQuestion'
 import PostAnswer from './Pages/postAnswer'
 import Feed from './Pages/Feed'
+import TextForm from './components/textForm'
 
 function App() {
 return (
@@ -15,6 +16,7 @@ return (
         <Route path="/profile" element={<Profile />} />
         <Route path="/postQuestion" element={<PostQuestion />} />
         <Route path="/postAnswer" element={<PostAnswer />} />
+        <Route path="/test" element={<TextForm />} />
         </Routes>
       </Router>
 );
