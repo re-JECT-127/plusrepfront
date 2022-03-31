@@ -1,5 +1,10 @@
 import '../App.css'
+import React from 'react';
+import FileInput from '../components/fileInput';
+import TextForm from '../components/textForm';
+
 const PostQuestion = () => {
+
     return (
 <>
   <link
@@ -16,17 +21,16 @@ const PostQuestion = () => {
           <form>
             <ul className="list-inline" id="list_PostActions">
               <li className="active">
-                <a href="#">Add photos/Video</a>
+                <FileInput></FileInput>
               </li>
               <li>
                 <a href="#">Add code</a>
               </li>
             </ul>
-            <textarea
-              className="form-control"
-              placeholder="What's n your mind?"
-              defaultValue={""}
-            />
+            <div className="postquestion-textform">
+            <TextForm></TextForm>
+            </div>
+
             <ul className="list-inline post-actions">
               <li>
                 <a href="#">
@@ -38,11 +42,6 @@ const PostQuestion = () => {
               </li>
               <li>
                 <a href="#" className="glyphicon glyphicon-map-marker" />
-              </li>
-              <li className="pull-right">
-                <a href="#" className="btn btn-primary btn-xs">
-                  Post
-                </a>
               </li>
             </ul>
           </form>
