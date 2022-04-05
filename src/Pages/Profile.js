@@ -3,10 +3,11 @@ import { useState, useEffect, Component, useCallback } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import Login from './Login'
 
+//Button to select/deselect a tag.
 const TagButton = ({ tag, userData, onTagChange, text }) => {
-  const [buttonColor, setButtonColor] = useState(userData.user.tags[0].developper)
+  const [buttonColor, setButtonColor] = useState(tag)
   // if (tag) setButtonColor(true)
-   console.log('tag', tag)
+  //  console.log('tag', Object.getOwnProperyNames(tag))
 
   const handleTagChange = useCallback(
     (event) => {
@@ -14,7 +15,6 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
       newUserData.user.tags[0].developper = !newUserData.user.tags[0].developper
       onTagChange(newUserData)
       window.localStorage.setItem('loggedUser', JSON.stringify(newUserData))
-
       console.log(newUserData.user.tags[0].developper)
     },
     [onTagChange, userData]
@@ -22,7 +22,6 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
 
   return (
     <>
-
       <button
         style={{ backgroundColor: buttonColor === true ? 'green' : 'red' }}
         onClick={() => {
@@ -57,6 +56,21 @@ const Profile = () => {
       setLogged(false)
     }
   }, [])
+
+  const createTagButtons = (tags) => {
+
+    const tagButtonArray = Object.entries(tags).filter((key) => {
+    //  console.log('key', key)
+      if(key[0] === 'developper' || key[0] === 'uiDesigner' || key[0] === 'salesman'){
+      const newObj = {[key[0]]: key[1]}
+      console.log(newObj)
+      return newObj
+      }
+    })
+
+    console.log('array', tagButtonArray)
+    return tagButtonArray
+  }
 
   //If not logged, navigate back to /
   if (!logged) {
@@ -301,24 +315,18 @@ const Profile = () => {
                         <h6 className="mb-0">Tags</h6>
                       </div>
                       <div className="col-sm-9 text-secondary">
-                        {tags ? (
-                          <button
-                            onClick={() =>
-                              console.log(userData.user.tags[0].developper)
-                            }
-                          >
-                            Developer
-                          </button>
+                        {userData ? (
+                          createTagButtons(userData.user.tags[0])
                         ) : (
                           <p>:(</p>
                         )}
                         {userData ? (
-                          <button onClick={console.log('jee')}>Sales</button>
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <button onClick={console.log('jee')}>UI</button>
+                          <TagButton
+                            text={'Geezuz'}
+                            tag={userData.user.tags[0].developper}
+                            userData={userData}
+                            onTagChange={setUserData}
+                          />
                         ) : (
                           <p>:(</p>
                         )}

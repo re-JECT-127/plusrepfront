@@ -119,7 +119,12 @@ const PostQuestion = () => {
                     )}
 
                     <div>
-                      <button onClick={handleImageSubmission}>Submit</button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleImageSubmission}
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </li>
