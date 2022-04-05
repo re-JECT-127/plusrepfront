@@ -4,10 +4,13 @@ import postService from '../services/posts'
 import Post from '../components/Post'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [posts, setPosts] = useState([])
   const [userData, setUserData] = useState(null)
+
+  const navigate = useNavigate()
 
   //Fetch userData from local storage
   useEffect(() => {
@@ -80,15 +83,25 @@ function Login() {
       <p>{userData.user.email}</p>
     </div>
   )
+  const handleProfileButton = (event) => {
+    event.preventDefault()
+
+    navigate('/profile', { replace: true })
+  }
+
+  const handleSubmitButton = (event) => {
+    event.preventDefault()
+    navigate('/postquestion', { replace: true })
+  }
 
   return (
     <body class="flex-container">
       <div class="big-box">
         {posts.map((post) => (
-          <Post content={post.content} key={posts.indexOf(post)} />
+          <Post post={post} key={posts.indexOf(post)} />
         ))}
-    
-      <div class='object-box'>
+
+        <div class='object-box'>
         <h1 class= 'object-header'> LIPSUM </h1>
         <div class= 'object-content'>
         <p class="object-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -102,18 +115,21 @@ function Login() {
       <input type='button' class='btn' value='Share'></input>
       </div>
       </div>
-
+      
       </div>
 
-      <div class='register-box'>
-      <h1 class='thick-h'>PLUS<br></br>REP</h1>
-          <input type="submit" class="sidebar-btn" value="SUBMIT QUESTION"></input>
-          <input type="button" class="sidebar-btn" value="PROFILE"></input>
-          <button class="sidebar-btn" onClick>LOGIN</button>
-          <br></br>
+      <div class="register-box">
+        <h1 class="thick-h">
+          PLUS<br></br>REP
+        </h1>
+        <button class="sidebar-btn" onClick={handleSubmitButton}>SUBMIT QUESTION</button>
+        <button class="sidebar-btn" onClick={handleProfileButton}>
+          PROFILE{' '}
+        </button>
+
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
-      </div> 
+      </div>
     </body>
   )
 }
