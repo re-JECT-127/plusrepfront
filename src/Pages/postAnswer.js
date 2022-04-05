@@ -1,7 +1,14 @@
 import '../App.css'
+import TopCommentsBox from '../components/Comments/TopCommentsBox';
+import MessageScroll from '../components/Comments/MessageScroll';
+// Main Context
+import { ContextProvider } from '../components/Comments/Context';
+
 const postAnswer = () => {
     return (
+      
 <>
+<ContextProvider>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -23,9 +30,11 @@ const postAnswer = () => {
                     className="img-fluid mb20"
                   />
                 </a>
-                <a href="#">
+                <div className="ColHolder">
+            <TopCommentsBox autoFocus={false} />
+            <MessageScroll />
+        </div>
                   <h3>Help needed in Java</h3>
-                </a>
                 <ul className="post-meta list-inline">
                   <li className="list-inline-item">
                     <i className="fa fa-user-circle-o" />{" "}
@@ -126,6 +135,7 @@ const postAnswer = () => {
       </div>
     </div>
   </div>
+  </ContextProvider>
 </>
     )
 }
