@@ -11,12 +11,7 @@
   font-weight: 800;
 }
 
-.img-feed{
-  display: flex;
-  justify-content: left;
-  height: 10vh;
-  width: auto;
-}
+
 
 .thick-h{
   display: flex;
@@ -48,15 +43,6 @@
   left: 0;
   flex-direction: column;
   font-family: Montserrat,sans-serif,Arial,Helvetica;
-
-}
-
-.btn{
-  padding: 5px;
-  margin: 5px;
-  display: flex;
-  justify-content: center;  
-  color: rgb(51, 51, 51);
 }
 
 .sidebar-btn{
@@ -94,6 +80,58 @@ font-weight: 200;
 border-radius: 10px;
 width: auto;
 /*center container*/ 
+}
+
+.object-content{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: auto;
+  display: flex;
+  font-family: Lato,sans-serif,Arial,Helvetica;
+  font-size: 18px;
+  font-weight: 200;
+  /*make container have rounded edges*/
+  width: auto;
+  /*center container*/ 
+}
+
+.object-img{
+  display: flex;
+  justify-content: right;
+  height: auto;
+  width: 20%;
+  margin: 1em;
+}
+
+.object-txt{
+  display: flex;
+  justify-content: left;
+  height: auto;
+  width: 80%;
+}
+
+.object-header{
+  display: flex;
+  justify-content: left;
+  height: auto;
+  width: 100%;
+}
+
+.button-box{
+  display: flex;
+  justify-content: left;
+  height: auto;
+  width: 100%;
+}
+
+.btn{
+  padding: 5px;
+  margin: 5px;
+  width: fit-content;
+  display: flex;
+  justify-content: center;  
+  color: rgb(51, 51, 51);
 }
 
 .App {
