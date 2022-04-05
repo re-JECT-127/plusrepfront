@@ -9,8 +9,9 @@ const TextForm = ({ onSubmit, postChange, postValue }) => {
           required
           value={postValue}
           onChange={postChange}
+          rows="10"
         ></textarea>
-        <button type="submit">Post</button>
+        <button class="btn btn-primary">Post</button>
       </div>
     </form>
   )
