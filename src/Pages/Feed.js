@@ -46,24 +46,12 @@ const Feed = () => {
       </div>
     
         <div class="register-box">
-          <h1>Register</h1>
+          <h1 class="thick-h">PLUS<br></br>REP</h1>
           <form action="http://localhost:3000/user" method="post" id="addUserForm">
-          <div class="textbox">
-            <i class="user-box"></i>
-            <input type="text" name="name" placeholder="Username" required></input>
-          </div>
 
-          <div class="textbox">
-            <i class="email-box"></i>
-            <input type="email" name="email" placeholder="Email" required></input>
-          </div>
   
-          <div class="textbox">
-            <i class="password-box"></i>
-            <input type="password" name="password" placeholder="Password" pattern="(?=.*[A-Z]).{8,}" required></input>
-          </div>
-  
-          <input type="submit" class="btn" value="Create account"></input>
+          <input type="submit" class="sidebar-btn" value="CREATE ACCOUNT"></input>
+          <input type="button" class="sidebar-btn" value="PROFILE"></input>
         </form>
   
         </div>
