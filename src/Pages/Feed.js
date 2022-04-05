@@ -3,9 +3,9 @@ const Feed = () => {
     return (
         <body class = "flex-container">
       <div class="big-box">
-        <div class="object-box">
+      <div class="object-box">
         <h1>LIPSUM</h1>
-        
+        <img class= "img-feed" src = "https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608" alt = "up yours"></img>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
@@ -47,12 +47,9 @@ const Feed = () => {
     
         <div class="register-box">
           <h1 class="thick-h">PLUS<br></br>REP</h1>
-          <form action="http://localhost:3000/user" method="post" id="addUserForm">
-
-  
-          <input type="submit" class="sidebar-btn" value="CREATE ACCOUNT"></input>
+          <input type="submit" class="sidebar-btn" value="SUBMIT QUESTION"></input>
           <input type="button" class="sidebar-btn" value="PROFILE"></input>
-        </form>
+        
   
         </div>
         </body>
