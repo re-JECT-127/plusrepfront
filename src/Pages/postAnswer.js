@@ -14,7 +14,6 @@ function PostAnswer()  {
   const getDate = () => {
     if(state){
       const date = new Date(state.date)
-
       return date.toLocaleString()
     }
   }
