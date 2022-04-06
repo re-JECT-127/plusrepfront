@@ -1,5 +1,7 @@
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Profile from './Pages/Profile'
 import Login from './Pages/Login'
 import PostQuestion from './Pages/postQuestion'
@@ -9,7 +11,7 @@ import Test from './components/Comments/TopCommentsBox'
 
 function App() {
 return (
-      <Router>
+      <HashRouter>
         <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/feed" element={<Feed />} />
@@ -18,7 +20,7 @@ return (
         <Route path="/postAnswer" element={<PostAnswer />} />
         <Route path="/test" element={<Test />} />
         </Routes>
-      </Router>
+      </HashRouter>
 );
 }
 
