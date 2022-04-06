@@ -1,29 +1,46 @@
 import '../App.css'
-import { useState, useEffect, Component, useCallback } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import Login from './Login'
+import { useState, useEffect, useCallback } from 'react'
+import { Navigate } from 'react-router-dom'
 
 //Button to select/deselect a tag.
 const TagButton = ({ tag, userData, onTagChange, text }) => {
-  const [buttonColor, setButtonColor] = useState(tag)
-  // if (tag) setButtonColor(true)
-  //  console.log('tag', Object.getOwnProperyNames(tag))
+  const [buttonColor, setButtonColor] = useState(tag[1])
 
   const handleTagChange = useCallback(
     (event) => {
       let newUserData = userData
-      newUserData.user.tags[0].developper = !newUserData.user.tags[0].developper
+
+      if (tag[0] === 'uiDesigner')
+        newUserData.user.tags[0].uiDesigner =
+          !newUserData.user.tags[0].uiDesigner
+
+      if (tag[0] === 'developper')
+        newUserData.user.tags[0].developper =
+          !newUserData.user.tags[0].developper
+
+      if (tag[0] === 'salesman')
+        newUserData.user.tags[0].salesman = !newUserData.user.tags[0].salesman
+
       onTagChange(newUserData)
       window.localStorage.setItem('loggedUser', JSON.stringify(newUserData))
-      console.log(newUserData.user.tags[0].developper)
+      console.log(newUserData.user.tags[0])
     },
-    [onTagChange, userData]
+    [onTagChange, tag, userData]
   )
 
   return (
     <>
       <button
-        style={{ backgroundColor: buttonColor === true ? 'green' : 'red' }}
+        style={{
+          backgroundColor: buttonColor === true ? 'rgb(246, 202, 53)' : 'lightgrey',
+          margin: 2,
+          borderRadius: 4,
+          border: 'none',
+          padding: '7px  14px',
+          display: 'inline-block',
+          textAlign: 'center',
+
+        }}
         onClick={() => {
           handleTagChange()
           setButtonColor(!buttonColor)
@@ -38,7 +55,6 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
 const Profile = () => {
   const [userData, setUserData] = useState(null)
   const [logged, setLogged] = useState(true)
-  const [tags, setTags] = useState([])
 
   //Fetch userData from local storage
   useEffect(() => {
@@ -47,24 +63,21 @@ const Profile = () => {
       const user = JSON.parse(loggedUserJSON)
       setUserData(user)
       console.log(user.user.tags[0].developper)
-      setTags([
-        { value: user.user.email, label: user.user.email },
-        { value: user.user.name, label: user.user.name },
-      ])
-      // postService.setToken(user.token)
     } else {
       setLogged(false)
     }
   }, [])
 
   const createTagButtons = (tags) => {
-
     const tagButtonArray = Object.entries(tags).filter((key) => {
-    //  console.log('key', key)
-      if(key[0] === 'developper' || key[0] === 'uiDesigner' || key[0] === 'salesman'){
-      const newObj = {[key[0]]: key[1]}
-      console.log(newObj)
-      return newObj
+      if (
+        key[0] === 'developper' ||
+        key[0] === 'uiDesigner' ||
+        key[0] === 'salesman'
+      ) {
+        const newObj = { [key[0]]: key[1] }
+        console.log(newObj)
+        return newObj
       }
     })
 
@@ -109,11 +122,7 @@ const Profile = () => {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={
-                          userData
-                            ? userData.user.picture
-                            : 'https://www.wikidata.org/wiki/Q146#/media/File:Cat_November_2010-1a.jpg'
-                        }
+                        src={userData !== null && userData.user.picture}
                         alt="Admin"
                         className="rounded-circle"
                         width={150}
@@ -315,31 +324,16 @@ const Profile = () => {
                         <h6 className="mb-0">Tags</h6>
                       </div>
                       <div className="col-sm-9 text-secondary">
-                        {userData ? (
-                          createTagButtons(userData.user.tags[0])
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <TagButton
-                            text={'Geezuz'}
-                            tag={userData.user.tags[0].developper}
-                            userData={userData}
-                            onTagChange={setUserData}
-                          />
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <TagButton
-                            text={'Test'}
-                            tag={userData.user.tags[0].developper}
-                            userData={userData}
-                            onTagChange={setUserData}
-                          />
-                        ) : (
-                          <p>:(</p>
-                        )}
+                        {userData !== null &&
+                          createTagButtons(userData.user.tags[0]).map((tag) => (
+                            <TagButton
+                              key={tag[0]}
+                              text={tag[0]}
+                              tag={tag}
+                              userData={userData}
+                              onTagChange={setUserData}
+                            />
+                          ))}
                       </div>
                     </div>
                   </div>
