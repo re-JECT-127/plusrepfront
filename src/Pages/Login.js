@@ -86,12 +86,12 @@ function Login() {
   const handleProfileButton = (event) => {
     event.preventDefault()
 
-    navigate('/profile', { replace: true })
+    navigate('/profile')
   }
 
   const handleSubmitButton = (event) => {
     event.preventDefault()
-    navigate('/postquestion', { replace: true })
+    navigate('/postquestion')
   }
 
   return (
