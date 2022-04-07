@@ -1,6 +1,8 @@
 import '../App.css'
 import { useState, useEffect, useCallback } from 'react'
 import { Navigate } from 'react-router-dom'
+import userService from "../services/users"
+
 
 //Button to select/deselect a tag.
 const TagButton = ({ tag, userData, onTagChange, text }) => {
@@ -10,20 +12,27 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
     (event) => {
       let newUserData = userData
 
-      if (tag[0] === 'uiDesigner')
-        newUserData.user.tags[0].uiDesigner =
-          !newUserData.user.tags[0].uiDesigner
+      if (tag[0] === 'UI')
+        newUserData.user.tags[0].UI =
+          !newUserData.user.tags[0].UI
 
-      if (tag[0] === 'developper')
-        newUserData.user.tags[0].developper =
-          !newUserData.user.tags[0].developper
+      if (tag[0] === 'Development')
+        newUserData.user.tags[0].Development =
+          !newUserData.user.tags[0].Development
 
-      if (tag[0] === 'salesman')
-        newUserData.user.tags[0].salesman = !newUserData.user.tags[0].salesman
+      if (tag[0] === 'Sales')
+        newUserData.user.tags[0].Sales = !newUserData.user.tags[0].Sales
+
+        if (tag[0] === 'General')
+        newUserData.user.tags[0].General = !newUserData.user.tags[0].General
 
       onTagChange(newUserData)
       window.localStorage.setItem('loggedUser', JSON.stringify(newUserData))
-      console.log(newUserData.user.tags[0])
+
+      console.log('newUserTags', newUserData.user.tags[0])
+      userService.updateTags(newUserData.user.tags[0].id, newUserData.user.tags[0]).then((response) => {
+        console.log('response', response)
+      })
     },
     [onTagChange, tag, userData]
   )
@@ -62,7 +71,7 @@ const Profile = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUserData(user)
-      console.log(user.user.tags[0].developper)
+      console.log(user.user)
     } else {
       setLogged(false)
     }
@@ -71,9 +80,10 @@ const Profile = () => {
   const createTagButtons = (tags) => {
     const tagButtonArray = Object.entries(tags).filter((key) => {
       if (
-        key[0] === 'developper' ||
-        key[0] === 'uiDesigner' ||
-        key[0] === 'salesman'
+        key[0] === 'UI' ||
+        key[0] === 'Development' ||
+        key[0] === 'Sales' ||
+        key[0] === 'General'
       ) {
         const newObj = { [key[0]]: key[1] }
         console.log(newObj)

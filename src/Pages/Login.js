@@ -85,7 +85,6 @@ function Login() {
   
   const handleProfileButton = (event) => {
     event.preventDefault()
-
     navigate('/profile')
   }
 
