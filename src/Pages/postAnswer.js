@@ -11,6 +11,13 @@ function PostAnswer()  {
   const { state } = useLocation();
   console.log('POST IN ANSWER', state)
 
+  const getDate = () => {
+    if(state){
+      const date = new Date(state.date)
+      return date.toLocaleString()
+    }
+  }
+
   return (
     <>
       <ContextProvider>
@@ -47,7 +54,7 @@ function PostAnswer()  {
                         </li>
                         <li className="list-inline-item">
                           <i className="fa fa-calendar-o" />{' '}
-                          <a href="#">15.3.2022</a>
+                          <a href="#">{state !== null ? getDate() : 'error'}</a>
                         </li>
                         <li className="list-inline-item">
                           <i className="fa fa-tags" /> <a href="#">#Java</a>

@@ -1,30 +1,55 @@
 import '../App.css'
-import { useState, useEffect, Component, useCallback } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import Login from './Login'
+import { useState, useEffect, useCallback } from 'react'
+import { Navigate } from 'react-router-dom'
+import userService from "../services/users"
 
+
+//Button to select/deselect a tag.
 const TagButton = ({ tag, userData, onTagChange, text }) => {
-  const [buttonColor, setButtonColor] = useState(userData.user.tags[0].developper)
-  // if (tag) setButtonColor(true)
-   console.log('tag', tag)
+  const [buttonColor, setButtonColor] = useState(tag[1])
 
   const handleTagChange = useCallback(
     (event) => {
       let newUserData = userData
-      newUserData.user.tags[0].developper = !newUserData.user.tags[0].developper
+
+      if (tag[0] === 'UI')
+        newUserData.user.tags[0].UI =
+          !newUserData.user.tags[0].UI
+
+      if (tag[0] === 'Development')
+        newUserData.user.tags[0].Development =
+          !newUserData.user.tags[0].Development
+
+      if (tag[0] === 'Sales')
+        newUserData.user.tags[0].Sales = !newUserData.user.tags[0].Sales
+
+        if (tag[0] === 'General')
+        newUserData.user.tags[0].General = !newUserData.user.tags[0].General
+
       onTagChange(newUserData)
       window.localStorage.setItem('loggedUser', JSON.stringify(newUserData))
 
-      console.log(newUserData.user.tags[0].developper)
+      console.log('newUserTags', newUserData.user.tags[0])
+      userService.updateTags(newUserData.user.tags[0].id, newUserData.user.tags[0]).then((response) => {
+        console.log('response', response)
+      })
     },
-    [onTagChange, userData]
+    [onTagChange, tag, userData]
   )
 
   return (
     <>
-
       <button
-        style={{ backgroundColor: buttonColor === true ? 'green' : 'red' }}
+        style={{
+          backgroundColor: buttonColor === true ? 'rgb(246, 202, 53)' : 'lightgrey',
+          margin: 2,
+          borderRadius: 4,
+          border: 'none',
+          padding: '7px  14px',
+          display: 'inline-block',
+          textAlign: 'center',
+
+        }}
         onClick={() => {
           handleTagChange()
           setButtonColor(!buttonColor)
@@ -39,7 +64,6 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
 const Profile = () => {
   const [userData, setUserData] = useState(null)
   const [logged, setLogged] = useState(true)
-  const [tags, setTags] = useState([])
 
   //Fetch userData from local storage
   useEffect(() => {
@@ -47,16 +71,29 @@ const Profile = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUserData(user)
-      console.log(user.user.tags[0].developper)
-      setTags([
-        { value: user.user.email, label: user.user.email },
-        { value: user.user.name, label: user.user.name },
-      ])
-      // postService.setToken(user.token)
+      console.log(user.user)
     } else {
       setLogged(false)
     }
   }, [])
+
+  const createTagButtons = (tags) => {
+    const tagButtonArray = Object.entries(tags).filter((key) => {
+      if (
+        key[0] === 'UI' ||
+        key[0] === 'Development' ||
+        key[0] === 'Sales' ||
+        key[0] === 'General'
+      ) {
+        const newObj = { [key[0]]: key[1] }
+        console.log(newObj)
+        return newObj
+      }
+    })
+
+    console.log('array', tagButtonArray)
+    return tagButtonArray
+  }
 
   //If not logged, navigate back to /
   if (!logged) {
@@ -95,11 +132,7 @@ const Profile = () => {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={
-                          userData
-                            ? userData.user.picture
-                            : 'https://www.wikidata.org/wiki/Q146#/media/File:Cat_November_2010-1a.jpg'
-                        }
+                        src={userData !== null && userData.user.picture}
                         alt="Admin"
                         className="rounded-circle"
                         width={150}
@@ -301,37 +334,16 @@ const Profile = () => {
                         <h6 className="mb-0">Tags</h6>
                       </div>
                       <div className="col-sm-9 text-secondary">
-                        {tags ? (
-                          <button
-                            onClick={() =>
-                              console.log(userData.user.tags[0].developper)
-                            }
-                          >
-                            Developer
-                          </button>
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <button onClick={console.log('jee')}>Sales</button>
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <button onClick={console.log('jee')}>UI</button>
-                        ) : (
-                          <p>:(</p>
-                        )}
-                        {userData ? (
-                          <TagButton
-                            text={'Test'}
-                            tag={userData.user.tags[0].developper}
-                            userData={userData}
-                            onTagChange={setUserData}
-                          />
-                        ) : (
-                          <p>:(</p>
-                        )}
+                        {userData !== null &&
+                          createTagButtons(userData.user.tags[0]).map((tag) => (
+                            <TagButton
+                              key={tag[0]}
+                              text={tag[0]}
+                              tag={tag}
+                              userData={userData}
+                              onTagChange={setUserData}
+                            />
+                          ))}
                       </div>
                     </div>
                   </div>

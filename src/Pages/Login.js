@@ -80,18 +80,17 @@ function Login() {
         referrerPolicy="no-referrer"
       />
       <p>{userData.user.name}</p>
-      <p>{userData.user.email}</p>
     </div>
   )
+  
   const handleProfileButton = (event) => {
     event.preventDefault()
-
-    navigate('/profile', { replace: true })
+    navigate('/profile')
   }
 
   const handleSubmitButton = (event) => {
     event.preventDefault()
-    navigate('/postquestion', { replace: true })
+    navigate('/postquestion')
   }
 
   return (
@@ -122,11 +121,10 @@ function Login() {
         <h1 class="thick-h">
           PLUS<br></br>REP
         </h1>
-        <button class="sidebar-btn" onClick={handleSubmitButton}>SUBMIT QUESTION</button>
-        <button class="sidebar-btn" onClick={handleProfileButton}>
+        {userData !== null && <button class="sidebar-btn" onClick={handleSubmitButton}>SUBMIT QUESTION</button>}
+        {userData !== null && <button class="sidebar-btn" onClick={handleProfileButton}>
           PROFILE{' '}
-        </button>
-
+        </button>}
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
       </div>
