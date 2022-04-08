@@ -96,7 +96,7 @@ function Login() {
   return (
     <body class="flex-container">
       <div class="big-box">
-        {posts.map((post) => (
+        {posts.slice(0).reverse().map((post) => (
           <Post post={post} key={posts.indexOf(post)} />
         ))}
 
