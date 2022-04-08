@@ -2,6 +2,9 @@ import React, {useRef, useState} from 'react'
 //Main Context
 import {useMainContext} from './Context';
 
+import commentsService from '../../services/comments'
+
+
 function TopCommentsBox(props) {
 
     const {setMessageReset, setCommentIncrement} =  useMainContext();
@@ -38,6 +41,30 @@ function TopCommentsBox(props) {
     //send comment
     const sendComment = (event) => {
     event.preventDefault();
+
+    const commentObject = {
+        author: props.userData.user._id,
+        content: message.current.value,
+        post: props.post._id,
+      }
+      console.log('commentObj msg',message)
+
+      console.log('commentObj',commentObject)
+
+      commentsService
+      .create(commentObject)
+      .then((returnedObject) => {
+         //Reset entire comments and matching increment counter
+         setMessageReset(prevState => !prevState);
+         setCommentIncrement(10);
+         //Delete text input, update comments and disable COMMENT BUTTON
+         message.current.value = ''
+         setEnablBtn(true) 
+      })
+ 
+  
+
+    /*
         fetch("", {
         method: "",
         headers: {},
@@ -50,6 +77,8 @@ function TopCommentsBox(props) {
         message.current.value = '';
         setEnablBtn(true);
     })
+*/
+
 }
 
     return (

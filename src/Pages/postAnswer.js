@@ -4,9 +4,20 @@ import MessageScroll from '../components/Comments/MessageScroll'
 // Main Context
 import { ContextProvider } from '../components/Comments/Context'
 import {useLocation} from 'react-router-dom';
+import { useState, useEffect } from 'react'
 
 function PostAnswer()  {
+  const [userData, setUserData] = useState(null)
+
   /* 2. Get the param */
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUserData(user)
+    }
+  }, [])
   
   const { state } = useLocation();
   console.log('POST IN ANSWER', state)
@@ -43,8 +54,8 @@ function PostAnswer()  {
                         />
                       </a>
                       <div className="ColHolder">
-                        <TopCommentsBox autoFocus={false} />
-                        <MessageScroll />
+                        <TopCommentsBox autoFocus={false} userData={userData} post={state} />
+                        <MessageScroll userData={userData} post={state}/>
                       </div>
                       <h3>Help needed in Java</h3>
                       <ul className="post-meta list-inline">

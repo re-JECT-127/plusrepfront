@@ -18,6 +18,17 @@ const getAll = () => {
   })
 }
 
+const getSinglePost = (id) => {
+  const config = { headers: { Authorization: token } }
+  const request = axios.get(`${baseUrl}/${id}`, config)
+
+  return request.then((response) => {
+    console.log(response.data)
+    return response.data
+  })
+}
+
+
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject)
   return request.then((response) => response.data)
@@ -26,4 +37,4 @@ const create = (newObject) => {
 
 
 
-export default { getAll, setToken, create }
+export default { getAll, setToken, create, getSinglePost }

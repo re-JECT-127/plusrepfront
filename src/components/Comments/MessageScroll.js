@@ -2,8 +2,12 @@ import React, {useEffect, useState, useRef} from 'react';
 import Message from './Message';
 //Main Context
 import {useMainContext} from './Context';
+import postService from '../../services/posts'
+
 
 function MessageScroll(props) {
+    const [userData, setUserData] = useState(null)
+
 
     //When bool from Main Context changes, re-render message list
     const {messageReset, commentIncrement, setCommentIncrement, messageUpdate} = useMainContext();
@@ -17,14 +21,20 @@ function MessageScroll(props) {
     //Load up the first 10 comments. Do this either on app start or when a new comment is posted
     useEffect(() => {
         setShowBottomBar(true);
-        fetch("", {
-        method: "",
-        headers: {},
-        body: JSON.stringify({limitNum:10})
-        }).then(res => res.json()).then(comments => {
-            setMessages(comments);
-        })
+        const loggedUserJSON = window.localStorage.getItem('loggedUser')
+        if (loggedUserJSON) {
+          const user = JSON.parse(loggedUserJSON)
+          setUserData(user)
+          postService.setToken(user.token)
+        }
 
+        postService.getSinglePost(props.post._id).then((post) => {
+            console.log('post', post)
+            setMessages(post.comments)
+          })
+    
+        setMessages(props.post.comments)
+        console.log('messages', messages)
     }, [messageReset])
 
     //Either update or delete an individual comment
@@ -112,8 +122,8 @@ function MessageScroll(props) {
         {messages.map(message => (
             <Message key={message._id} useKey={message._id}
             user={message.user} editable={message.editable}
-            message={message.message} likes={message.likes}
-            replies={message.replies} />
+            message={message.content} likes={message.likes}
+            replies={message.replies} date={message.date} />
         ))}
         { messages.length > 9 && showBottomBar ? <div className="bottomBar" ref={setBottomBar}><div className="loader"></div></div> : null}
 
