@@ -135,7 +135,6 @@ function Login() {
         {userData !== null && <button class="sidebar-btn" onClick={handleProfileButton}>
           PROFILE{' '}
         </button>}
-        {<button class="sidebar-btn" onClick={openModal}>modal</button>}
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
         {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}

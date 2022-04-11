@@ -121,10 +121,6 @@ function PostQuestion({setOpenModal}) {
                     ) : (
                       <p>Select a file to show details</p>
                     )}
-
-                    <div>
-                      <button onClick={handleImageSubmission}>Submit</button>
-                    </div>
                   </div>
                 </li>
                 <li>
