@@ -35,7 +35,7 @@ const Post = ({ post }) => {
       <h1>TOPIC HERE</h1>
       <p>{post.content}</p>
       <p style={{fontSize: 14}}>{getDate()}</p>
-
+      <img class='object-img' src={post.image} alt="up yours"></img>
     </div>
   )
 }

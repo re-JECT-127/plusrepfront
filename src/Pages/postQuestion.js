@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const PostQuestion = () => {
   const [newPost, setNewPost] = useState('')
@@ -29,13 +30,22 @@ const PostQuestion = () => {
     event.preventDefault()
     console.log(newPost)
 
+    const formData = new FormData()
+    formData.append('file', selectedFile)
+    formData.append('author', userData.user._id)
+    formData.append('content', newPost)
+
+    console.log('formdata', formData.get('file'))
+    console.log('selectedfile', selectedFile, selectedFile.name)
+/*
     const postObject = {
       author: userData.user._id,
       content: newPost,
+      file: selectedFile
     }
-
+*/
     postService
-      .create(postObject)
+      .create(formData)
       .then((returnedObject) => {
         setNotification('Post successfull, redirecting back to home.')
         setTimeout(() => {
@@ -62,13 +72,7 @@ const PostQuestion = () => {
     setSelectedFile(event.target.files[0])
     setIsFilePicked(true)
   }
-
-  const handleImageSubmission = () => {
-    const formData = new FormData()
-    formData.append('image', selectedFile)
-    console.log()
-  }
-
+  
   //Error message
   const Error = ({ message }) => {
     if (message === null) {
@@ -117,10 +121,6 @@ const PostQuestion = () => {
                     ) : (
                       <p>Select a file to show details</p>
                     )}
-
-                    <div>
-                      <button onClick={handleImageSubmission}>Submit</button>
-                    </div>
                   </div>
                 </li>
                 <li>

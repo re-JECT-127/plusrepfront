@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import '../App.css'
 import postService from '../services/posts'
 import Post from '../components/Post'
+import PostQuestion from './postQuestion'
+import Modal from 'react-modal'
+
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 function Login() {
   const [posts, setPosts] = useState([])
   const [userData, setUserData] = useState(null)
-
   const navigate = useNavigate()
 
   //Fetch userData from local storage
