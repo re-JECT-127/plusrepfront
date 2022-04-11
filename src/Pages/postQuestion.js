@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import Resizer from 'react-image-file-resizer'
 
 const PostQuestion = () => {
   const [newPost, setNewPost] = useState('')
@@ -12,6 +12,7 @@ const PostQuestion = () => {
   const [selectedFile, setSelectedFile] = useState()
   const [isFilePicked, setIsFilePicked] = useState(false)
   const [notification, setNotification] = useState(null)
+  const [image, setImage] = useState(null)
 
   const navigate = useNavigate()
 
@@ -31,19 +32,14 @@ const PostQuestion = () => {
     console.log(newPost)
 
     const formData = new FormData()
-    formData.append('file', selectedFile)
+
+    if (selectedFile) {
+      console.log('posting image')
+      formData.append('file', selectedFile, selectedFile.name)
+    }
     formData.append('author', userData.user._id)
     formData.append('content', newPost)
 
-    console.log('formdata', formData.get('file'))
-    console.log('selectedfile', selectedFile, selectedFile.name)
-/*
-    const postObject = {
-      author: userData.user._id,
-      content: newPost,
-      file: selectedFile
-    }
-*/
     postService
       .create(formData)
       .then((returnedObject) => {
@@ -64,15 +60,59 @@ const PostQuestion = () => {
   }
 
   const handlePostChange = (event) => {
-    console.log(event.target.value)
     setNewPost(event.target.value)
   }
 
+  //Handle image select
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0])
+
+    //If image is too large, resize it
+    if (event.target.files[0].size < 500000) {
+      setSelectedFile(event.target.files[0])
+      onImageChange(event)
+    } else {
+      onChange(event)
+    }
     setIsFilePicked(true)
   }
-  
+
+  //Resize image
+  const onChange = async (event) => {
+    try {
+      const file = event.target.files[0]
+      const image = await resizeFile(file)
+      setSelectedFile(image)
+      onImageChange(event)
+      console.log('onchange image', image)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  //Resize image
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        1920,
+        1080,
+        'JPEG',
+        50,
+        0,
+        (uri) => {
+          resolve(uri)
+        },
+        'file'
+      )
+    })
+
+  //Set image for preview
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]))
+    }
+  }
+
   //Error message
   const Error = ({ message }) => {
     if (message === null) {
@@ -112,11 +152,7 @@ const PostQuestion = () => {
 
                     {isFilePicked ? (
                       <div>
-                        <p>Filename: {selectedFile.name}</p>
-
-                        <p>Filetype: {selectedFile.type}</p>
-
-                        <p>Size in bytes: {selectedFile.size}</p>
+                        <img src={image} alt="preview" />
                       </div>
                     ) : (
                       <p>Select a file to show details</p>
