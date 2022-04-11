@@ -1,5 +1,9 @@
-import '../App.css'
+import React, { useState} from "react";
+import '../App.css';
+import PostQuestion from "../Pages/postQuestion";
+
 const Feed = () => {
+  const [modalOpen, setModalOpen] = useState(false);
     return (
         <body class = "flex-container">
       <div class="big-box">
@@ -47,9 +51,11 @@ const Feed = () => {
     
         <div class="register-box">
           <h1 class="thick-h">PLUS<br></br>REP</h1>
-          <input type="submit" class="sidebar-btn" value="SUBMIT QUESTION"></input>
+          <input type="submit" class="sidebar-btn" value="SUBMIT QUESTION" onClick={() => {
+          setModalOpen(true);}}></input>
+          
           <input type="button" class="sidebar-btn" value="PROFILE"></input>
-        
+        {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}
   
         </div>
         </body>

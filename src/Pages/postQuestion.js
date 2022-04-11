@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
 import { useNavigate } from 'react-router-dom'
+import "../Modal.css"
 
-const PostQuestion = () => {
+function PostQuestion({setOpenModal}) {
   const [newPost, setNewPost] = useState('')
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
@@ -86,8 +87,11 @@ const PostQuestion = () => {
     return <div className="notification">{message}</div>
   }
 
+
   return (
     <>
+    <div className="modalBackground">
+      <div className="modalContainer">
       <Notification message={notification} />
       <Error message={error} />
       <link
@@ -127,6 +131,7 @@ const PostQuestion = () => {
                   <a href="#">Add code</a>
                 </li>
               </ul>
+              
               <div className="postquestion-textform">
                 <TextForm
                   onSubmit={addPost}
@@ -134,23 +139,32 @@ const PostQuestion = () => {
                   postChange={handlePostChange}
                 />
               </div>
-
+              <button onClick={() => {
+              setOpenModal(false);
+              }} id="cancelBtn">
+              Cancel
+              </button>
               <ul className="list-inline post-actions">
                 <li>
                   <a href="#">
                     <span className="glyphicon glyphicon-camera" />
                   </a>
                 </li>
+                
                 <li>
                   <a href="#" className="glyphicon glyphicon-user" />
                 </li>
+                
                 <li>
                   <a href="#" className="glyphicon glyphicon-map-marker" />
                 </li>
+            
               </ul>
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </>
   )
