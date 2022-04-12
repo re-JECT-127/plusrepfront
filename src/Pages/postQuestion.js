@@ -205,19 +205,13 @@ function PostQuestion({ setOpenModal }) {
         <div className="modalContainer">
           <Notification message={notification} />
           <Error message={error} />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossOrigin="anonymous"
-          />
-          <link rel="stylesheet" href="profile.css" />
-          <div className="container bootstrap snippets bootdey">
-            <div className="row">
-              <div className="col-md-offset-3 col-md-6 col-xs-12">
-                <div className="well well-sm well-social-post">
-                  <ul className="list-inline" id="list_PostActions">
-                    <li className="active">
+          
+          <div>
+            <div>
+              <div>
+                <div>
+                  <ul>
+                    <li>
                       <div>
                         <input
                           type="file"
