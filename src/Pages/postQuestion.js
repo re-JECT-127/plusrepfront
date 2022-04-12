@@ -31,6 +31,7 @@ function PostQuestion({setOpenModal}) {
   const addPost = (event) => {
     event.preventDefault()
     console.log(newPost)
+    setOpenModal(false)
 
     const formData = new FormData()
 
@@ -58,6 +59,7 @@ function PostQuestion({setOpenModal}) {
       })
 
     setNewPost('')
+
   }
 
   const handlePostChange = (event) => {
@@ -149,9 +151,11 @@ function PostQuestion({setOpenModal}) {
         <div className="row">
           <div className="col-md-offset-3 col-md-6 col-xs-12">
             <div className="well well-sm well-social-post">
+
               <header>
               <input type="text" class="form-control pull-right" placeholder="Title"/>
               </header>
+              
               <ul className="list-inline" id="list_PostActions">
                 <li className="active">
                   <div>
