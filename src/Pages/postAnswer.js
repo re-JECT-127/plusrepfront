@@ -48,7 +48,7 @@ function PostAnswer()  {
                     <div className="vtimeline-content">
                       <a href="#">
                         <img
-                          src="https://miro.medium.com/max/1400/1*kSOvoHiZvF_jNJL4zF06ug.png"
+                          src={state.image}
                           alt=""
                           className="img-fluid mb20"
                         />
