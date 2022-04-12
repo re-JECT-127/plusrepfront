@@ -4,6 +4,7 @@ import TextForm from '../components/textForm'
 import postService from '../services/posts'
 import { useNavigate } from 'react-router-dom'
 import "../Modal.css"
+import Resizer from 'react-image-file-resizer'
 
 function PostQuestion({setOpenModal}) {
   const [newPost, setNewPost] = useState('')
@@ -12,6 +13,7 @@ function PostQuestion({setOpenModal}) {
   const [selectedFile, setSelectedFile] = useState()
   const [isFilePicked, setIsFilePicked] = useState(false)
   const [notification, setNotification] = useState(null)
+  const [image, setImage] = useState(null)
 
   const navigate = useNavigate()
 
@@ -30,13 +32,17 @@ function PostQuestion({setOpenModal}) {
     event.preventDefault()
     console.log(newPost)
 
-    const postObject = {
-      author: userData.user._id,
-      content: newPost,
+    const formData = new FormData()
+
+    if (selectedFile) {
+      console.log('posting image')
+      formData.append('file', selectedFile, selectedFile.name)
     }
+    formData.append('author', userData.user._id)
+    formData.append('content', newPost)
 
     postService
-      .create(postObject)
+      .create(formData)
       .then((returnedObject) => {
         setNotification('Post successfull, redirecting back to home.')
         setTimeout(() => {
@@ -55,19 +61,57 @@ function PostQuestion({setOpenModal}) {
   }
 
   const handlePostChange = (event) => {
-    console.log(event.target.value)
     setNewPost(event.target.value)
   }
 
+  //Handle image select
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0])
+
+    //If image is too large, resize it.
+    if (event.target.files[0].size < 500000) {
+      setSelectedFile(event.target.files[0])
+      onImageChange(event)
+    } else {
+      onChange(event)
+    }
     setIsFilePicked(true)
   }
 
-  const handleImageSubmission = () => {
-    const formData = new FormData()
-    formData.append('image', selectedFile)
-    console.log()
+  //Resize image
+  const onChange = async (event) => {
+    try {
+      const file = event.target.files[0]
+      const image = await resizeFile(file)
+      setSelectedFile(image)
+      onImageChange(event)
+      console.log('onchange image', image)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  //Resize image
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        1920,
+        1080,
+        'JPEG',
+        50,
+        0,
+        (uri) => {
+          resolve(uri)
+        },
+        'file'
+      )
+    })
+
+  //Set image for preview
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]))
+    }
   }
 
   //Error message
@@ -112,11 +156,7 @@ function PostQuestion({setOpenModal}) {
 
                     {isFilePicked ? (
                       <div>
-                        <p>Filename: {selectedFile.name}</p>
-
-                        <p>Filetype: {selectedFile.type}</p>
-
-                        <p>Size in bytes: {selectedFile.size}</p>
+                        <img src={image} alt="preview" />
                       </div>
                     ) : (
                       <p>Select a file to show details</p>
