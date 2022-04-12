@@ -35,7 +35,6 @@ function PostQuestion({setOpenModal}) {
     const formData = new FormData()
 
     if (selectedFile) {
-      console.log('posting image')
       formData.append('file', selectedFile, selectedFile.name)
     }
     formData.append('author', userData.user._id)

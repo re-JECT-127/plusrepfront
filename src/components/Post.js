@@ -18,24 +18,27 @@ const Post = ({ post }) => {
   }
 
   const getDate = () => {
-    if(post.date){
+    if (post.date) {
       const date = new Date(post.date)
       return date.toLocaleString()
     }
   }
 
-
   return (
     <div
-      class="object-box"
+      className="object-box"
       onClick={handleClick}
       onMouseEnter={changeBackground}
       onMouseLeave={changeBackgroundBack}
     >
-      <h1>TOPIC HERE</h1>
-      <p>{post.content}</p>
-      <p style={{fontSize: 14}}>{getDate()}</p>
-      <img class='object-img' src={post.image} alt="up yours"></img>
+      <h1 className="object-header">TOPIC HERE</h1>
+      <div className="object-content">
+        <p className="object-text">{post.content}</p>
+        <img class="object-img" src={post.image} alt="up yours"></img>
+      </div>
+      <div class="button-box">
+        <p className="object-text"> {getDate()}</p>
+      </div>
     </div>
   )
 }
