@@ -3,6 +3,7 @@ import '../App.css'
 import postService from '../services/posts'
 import Post from '../components/Post'
 import PostQuestion from './postQuestion'
+import Modal from 'react-modal'
 
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
@@ -124,7 +125,6 @@ function Login() {
       <input type='button' class='btn' value='Share'></input>
       </div>
       </div>
-      
       </div>
 
       <div class="register-box">
