@@ -116,6 +116,8 @@ width: auto;
 }
 
 .object-header{
+  font-weight: 1000;
+  font-size: larger;
   display: flex;
   justify-content: left;
   height: auto;
