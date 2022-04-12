@@ -1,5 +1,7 @@
 import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/posts'
+const uploadImageUrl = 'http://localhost:3001/upload'
+
 
 let token = null
 
@@ -28,13 +30,19 @@ const getSinglePost = (id) => {
   })
 }
 
-
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject)
+  return request.then((response) => response.data)
+}
+
+const uploadImage = (image) => {
+  const request = axios.post(uploadImageUrl, image)
   return request.then((response) => response.data)
 }
 
 
 
 
-export default { getAll, setToken, create, getSinglePost }
+
+
+export default { getAll, setToken, create, getSinglePost, uploadImage }
