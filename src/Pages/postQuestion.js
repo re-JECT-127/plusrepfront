@@ -1,12 +1,12 @@
 import '../App.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
 import { useNavigate } from 'react-router-dom'
-import "../Modal.css"
+import '../Modal.css'
 import Resizer from 'react-image-file-resizer'
 
-function PostQuestion({setOpenModal}) {
+function PostQuestion({ setOpenModal }) {
   const [newPost, setNewPost] = useState('')
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
@@ -14,8 +14,66 @@ function PostQuestion({setOpenModal}) {
   const [isFilePicked, setIsFilePicked] = useState(false)
   const [notification, setNotification] = useState(null)
   const [image, setImage] = useState(null)
+  const [selectedTags, setSelectedTags] = useState({
+    UI: false,
+    Development: false,
+    Sales: false,
+    General: false,
+  })
 
   const navigate = useNavigate()
+
+  const TagButton = ({ tag, text }) => {
+    const [buttonColor, setButtonColor] = useState(tag)
+
+    const handleTagChange = () => {
+        let newTags = selectedTags
+        if (text === 'UI') {
+          newTags.UI = !newTags.UI
+          setSelectedTags(newTags)
+          console.log(selectedTags)
+        }
+        if (text === 'Development') {
+          newTags.Development = !newTags.Development
+          setSelectedTags(newTags)
+          console.log(selectedTags)
+        }
+        if (text === 'Sales') {
+          newTags.Sales = !newTags.Sales
+          setSelectedTags(newTags)
+          console.log(selectedTags)
+        }
+        if (text === 'General') {
+          newTags.General = !newTags.General
+          setSelectedTags(newTags)
+          console.log(selectedTags)
+        }
+      }
+    
+
+    return (
+      <>
+        <button
+          style={{
+            backgroundColor:
+              buttonColor === true ? 'rgb(246, 202, 53)' : 'lightgrey',
+            margin: 2,
+            borderRadius: 4,
+            border: 'none',
+            padding: '7px  14px',
+            display: 'inline-block',
+            textAlign: 'center',
+          }}
+          onClick={() => {
+            handleTagChange()
+            setButtonColor(!buttonColor)
+          }}
+        >
+          {text}
+        </button>
+      </>
+    )
+  }
 
   //Load userdata from localstorage
   useEffect(() => {
@@ -33,17 +91,29 @@ function PostQuestion({setOpenModal}) {
     console.log(newPost)
 
     const formData = new FormData()
-
+    
+    var taggers = JSON.stringify({
+      UI: false,
+      Development: false,
+      Sales: false,
+      General: false,
+    })
+    
     if (selectedFile) {
       formData.append('file', selectedFile, selectedFile.name)
     }
     formData.append('author', userData.user._id)
+    formData.append('title', 'hardcoded test title')
     formData.append('content', newPost)
+    formData.append('UI', selectedTags.UI)
+    formData.append('Development', selectedTags.Development)
+    formData.append('Sales', selectedTags.Sales)
+    formData.append('General', selectedTags.General)
 
     postService
       .create(formData)
       .then((returnedObject) => {
-        setNotification('Post successfull, redirecting back to home.')
+        setNotification('Post successful, redirecting back to home.')
         setTimeout(() => {
           setNotification(null)
           navigate('/', { replace: true })
@@ -65,7 +135,6 @@ function PostQuestion({setOpenModal}) {
 
   //Handle image select
   const changeHandler = (event) => {
-
     //If image is too large, resize it.
     if (event.target.files[0].size < 500000) {
       setSelectedFile(event.target.files[0])
@@ -130,76 +199,86 @@ function PostQuestion({setOpenModal}) {
     return <div className="notification">{message}</div>
   }
 
-
   return (
     <>
-    <div className="modalBackground">
-      <div className="modalContainer">
-      <Notification message={notification} />
-      <Error message={error} />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossOrigin="anonymous"
-      />
-      <link rel="stylesheet" href="profile.css" />
-      <div className="container bootstrap snippets bootdey">
-        <div className="row">
-          <div className="col-md-offset-3 col-md-6 col-xs-12">
-            <div className="well well-sm well-social-post">
-              <ul className="list-inline" id="list_PostActions">
-                <li className="active">
-                  <div>
-                    <input type="file" name="file" onChange={changeHandler} />
-
-                    {isFilePicked ? (
+      <div className="modalBackground">
+        <div className="modalContainer">
+          <Notification message={notification} />
+          <Error message={error} />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossOrigin="anonymous"
+          />
+          <link rel="stylesheet" href="profile.css" />
+          <div className="container bootstrap snippets bootdey">
+            <div className="row">
+              <div className="col-md-offset-3 col-md-6 col-xs-12">
+                <div className="well well-sm well-social-post">
+                  <ul className="list-inline" id="list_PostActions">
+                    <li className="active">
                       <div>
-                        <img src={image} alt="preview" />
+                        <input
+                          type="file"
+                          name="file"
+                          onChange={changeHandler}
+                        />
+
+                        {isFilePicked ? (
+                          <div>
+                            <img src={image} alt="preview" />
+                          </div>
+                        ) : (
+                          <p>Select a file to show details</p>
+                        )}
+                        <p>Select tags:</p>
+                        <TagButton tag={selectedTags.UI} text={'UI'}></TagButton>
+                        <TagButton tag={selectedTags.Development} text={'Development'}></TagButton>
+                        <TagButton tag={selectedTags.Sales} text={'Sales'}></TagButton>
+                        <TagButton tag={selectedTags.General} text={'General'}></TagButton>
                       </div>
-                    ) : (
-                      <p>Select a file to show details</p>
-                    )}
+                    </li>
+                    <li>
+                      <a href="#">Add code</a>
+                    </li>
+                  </ul>
+
+                  <div className="postquestion-textform">
+                    <TextForm
+                      onSubmit={addPost}
+                      postValue={newPost}
+                      postChange={handlePostChange}
+                    />
                   </div>
-                </li>
-                <li>
-                  <a href="#">Add code</a>
-                </li>
-              </ul>
-              
-              <div className="postquestion-textform">
-                <TextForm
-                  onSubmit={addPost}
-                  postValue={newPost}
-                  postChange={handlePostChange}
-                />
+                  <button
+                    onClick={() => {
+                      setOpenModal(false)
+                    }}
+                    id="cancelBtn"
+                  >
+                    Cancel
+                  </button>
+                  <ul className="list-inline post-actions">
+                    <li>
+                      <a href="#">
+                        <span className="glyphicon glyphicon-camera" />
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#" className="glyphicon glyphicon-user" />
+                    </li>
+
+                    <li>
+                      <a href="#" className="glyphicon glyphicon-map-marker" />
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <button onClick={() => {
-              setOpenModal(false);
-              }} id="cancelBtn">
-              Cancel
-              </button>
-              <ul className="list-inline post-actions">
-                <li>
-                  <a href="#">
-                    <span className="glyphicon glyphicon-camera" />
-                  </a>
-                </li>
-                
-                <li>
-                  <a href="#" className="glyphicon glyphicon-user" />
-                </li>
-                
-                <li>
-                  <a href="#" className="glyphicon glyphicon-map-marker" />
-                </li>
-            
-              </ul>
             </div>
           </div>
         </div>
-      </div>
-      </div>
       </div>
     </>
   )
