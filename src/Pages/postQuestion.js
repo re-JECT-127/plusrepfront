@@ -66,7 +66,7 @@ const PostQuestion = () => {
   //Handle image select
   const changeHandler = (event) => {
 
-    //If image is too large, resize it
+    //If image is too large, resize it.
     if (event.target.files[0].size < 500000) {
       setSelectedFile(event.target.files[0])
       onImageChange(event)
