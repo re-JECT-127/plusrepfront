@@ -15,12 +15,8 @@ function Login() {
 
   //Fetch userData from local storage
   useEffect(() => {
-    console.log('setting userdata123')
-
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
-      console.log('setting userdata')
-
       const user = JSON.parse(loggedUserJSON)
       setUserData(user)
       postService.setToken(user.token)
