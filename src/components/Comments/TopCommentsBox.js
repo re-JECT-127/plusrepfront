@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 //Main Context
 import {useMainContext} from './Context';
-
+import './CommentsBox.css'
 import commentsService from '../../services/comments'
 
 

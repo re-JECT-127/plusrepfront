@@ -2,6 +2,7 @@ import React, {useRef, useState, useContext} from 'react';
 import SubCommentsBox from './SubCommentsBox';
 //Main Context
 import {useMainContext} from './Context'
+import './CommentsBox.css'
 
 const showReply = React.createContext();
 

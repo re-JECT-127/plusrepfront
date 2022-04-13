@@ -3,7 +3,7 @@ import Message from './Message';
 //Main Context
 import {useMainContext} from './Context';
 import postService from '../../services/posts'
-
+import './CommentsBox.css'
 
 function MessageScroll(props) {
     const [userData, setUserData] = useState(null)

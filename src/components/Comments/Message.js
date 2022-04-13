@@ -3,6 +3,7 @@ import CommentsBox from './CommentsBox';
 import SubMessage from './SubMessage';
 //Main Context
 import {useMainContext} from './Context'
+import './CommentsBox.css'
 
 const showReply = React.createContext();
 

@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react'
 import {useOpenReply} from './Message'
 //Main Context
 import {useMainContext} from './Context'
+import './CommentsBox.css'
 
 function CommentsBox(props) {
 
