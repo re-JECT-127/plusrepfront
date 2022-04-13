@@ -31,7 +31,7 @@ const Post = ({ post }) => {
       onMouseEnter={changeBackground}
       onMouseLeave={changeBackgroundBack}
     >
-      <h1 className="object-header">TOPIC HERE</h1>
+      <h1 className="object-header">{post.title}</h1>
       <div className="object-content">
         <p className="object-text">{post.content}</p>
         <img class="object-img" src={post.image} alt="up yours"></img>

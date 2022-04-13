@@ -1,6 +1,8 @@
 import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/posts'
 const uploadImageUrl = 'http://localhost:3001/upload'
+const tagsUrl = 'http://localhost:3001/api/tags'
+
 
 
 let token = null
@@ -30,6 +32,16 @@ const getSinglePost = (id) => {
   })
 }
 
+const getTags = (id) => {
+  const config = { headers: { Authorization: token } }
+  const request = axios.get(`${tagsUrl}/${id}`, config)
+
+  return request.then((response) => {
+   // console.log(response.data)
+    return response.data
+  })
+}
+
 const create = (newObject) => {
   const request = axios.post(baseUrl, newObject)
   return request.then((response) => response.data)
@@ -45,4 +57,4 @@ const uploadImage = (image) => {
 
 
 
-export default { getAll, setToken, create, getSinglePost, uploadImage }
+export default { getAll, setToken, create, getSinglePost, uploadImage, getTags }
