@@ -131,7 +131,7 @@ function Login() {
         <h1 class="thick-h">
           PLUS<br></br>REP
         </h1>
-        {<button class="sidebar-btn" onClick={handleSubmitButton}>SUBMIT QUESTION</button>}
+        {userData !== null && <button class="sidebar-btn" onClick={handleSubmitButton}>SUBMIT QUESTION</button>}
         {userData !== null && <button class="sidebar-btn" onClick={handleProfileButton}>
           PROFILE{' '}
         </button>}
