@@ -17,6 +17,9 @@
     display: flex;
     flex-direction: column;
     padding: 25px;
+    font-family: Lato,sans-serif,Arial,Helvetica;
+    font-size: 18px;
+    font-weight: 200;
   }
   
   .modalContainer .title {

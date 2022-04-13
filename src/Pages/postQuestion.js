@@ -244,8 +244,7 @@ function PostQuestion({ setOpenModal }) {
                       postValue={newPost}
                       postChange={handlePostChange}
                     />
-                  </div>
-                  <button
+                  <button className='btn'
                     onClick={() => {
                       setOpenModal(false)
                     }}
@@ -253,6 +252,8 @@ function PostQuestion({ setOpenModal }) {
                   >
                     Cancel
                   </button>
+                  </div>
+
                   <ul className="list-inline post-actions">
                     <li>
                       <a href="#">
