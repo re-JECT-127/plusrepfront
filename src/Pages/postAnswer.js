@@ -57,7 +57,7 @@ function PostAnswer()  {
                         <TopCommentsBox autoFocus={false} userData={userData} post={state} />
                         <MessageScroll userData={userData} post={state}/>
                       </div>
-                      <h3>Help needed in Java</h3>
+                      <h3>{state.title}</h3>
                       <ul className="post-meta list-inline">
                         <li className="list-inline-item">
                           <i className="fa fa-user-circle-o" />{' '}
