@@ -139,12 +139,12 @@ function Login() {
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p>
-            <img
+              <img
               class="object-img"
               src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
               alt="up yours"
             ></img>
+            </p>
           </div>
           <div class="button-box">
             <input type="button" class="btn" value="Comment"></input>
