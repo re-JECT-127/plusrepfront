@@ -5,6 +5,7 @@ import MessageScroll from '../components/Comments/MessageScroll'
 import { ContextProvider } from '../components/Comments/Context'
 import {useLocation} from 'react-router-dom';
 import { useState, useEffect } from 'react'
+import '../components/Comments/CommentsBox.css'
 
 function PostAnswer()  {
   const [userData, setUserData] = useState(null)
@@ -53,11 +54,7 @@ function PostAnswer()  {
                           className="img-fluid mb20"
                         />
                       </a>
-                      <div className="ColHolder">
-                        <TopCommentsBox autoFocus={false} userData={userData} post={state} />
-                        <MessageScroll userData={userData} post={state}/>
-                      </div>
-                      <h3>{state.title}</h3>
+                      <h3>Help needed in Java</h3>
                       <ul className="post-meta list-inline">
                         <li className="list-inline-item">
                           <i className="fa fa-user-circle-o" />{' '}
@@ -77,84 +74,12 @@ function PostAnswer()  {
                        {state !== null ? state.content : 'error'}
                       </p>
                       <br />
+                      <div className="ColHolder">
+                        <TopCommentsBox autoFocus={false} userData={userData} post={state} />
+                        <MessageScroll userData={userData} post={state}/>
+                      </div>
                     </div>
-                    <ul className="media-list">
-                      <li className="media">
-                        <a href="#" className="pull-left">
-                          <img
-                            src="https://bootdey.com/img/Content/user_1.jpg"
-                            alt=""
-                            className="img-circle"
-                          />
-                        </a>
-                        <div className="media-body">
-                          <span className="text-muted pull-right">
-                            <small className="text-muted">30 min ago</small>
-                          </span>
-                          <strong className="text-success">
-                            MattiMeikalainen
-                          </strong>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Curabitur in iaculis ex. Etiam volutpat
-                            laoreet .
-                          </p>
-                        </div>
-                      </li>
-                      <li className="media">
-                        <a href="#" className="pull-left">
-                          <img
-                            src="https://bootdey.com/img/Content/user_2.jpg"
-                            alt=""
-                            className="img-circle"
-                          />
-                        </a>
-                        <div className="media-body">
-                          <span className="text-muted pull-right">
-                            <small className="text-muted">50 min ago</small>
-                          </span>
-                          <strong className="text-success">MaijaM</strong>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Curabitur in iaculis ex. Etiam volutpat
-                            laoreet
-                          </p>
-                        </div>
-                      </li>
-                      <li className="media">
-                        <a href="#" className="pull-left">
-                          <img
-                            src="https://bootdey.com/img/Content/user_3.jpg"
-                            alt=""
-                            className="img-circle"
-                          />
-                        </a>
-                        <div className="media-body">
-                          <span className="text-muted pull-right">
-                            <small className="text-muted">59 min ago</small>
-                          </span>
-                          <strong className="text-success">JokuKolmas</strong>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Curabitur in iaculis ex. Etiam volutpat
-                            laoreet
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <hr />
-                    <div className="panel-heading">Comment panel</div>
-                    <div className="clearfix" />
-                    <textarea
-                      className="form-control"
-                      placeholder="write a comment..."
-                      rows={3}
-                      defaultValue={''}
-                    />
-                    <br />
-                    <button type="button" className="btn btn-info pull-right">
-                      Post
-                    </button>
+
                   </div>
                 </div>
               </div>
