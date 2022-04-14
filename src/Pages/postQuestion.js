@@ -8,6 +8,7 @@ import Resizer from 'react-image-file-resizer'
 
 function PostQuestion({ setOpenModal }) {
   const [newPost, setNewPost] = useState('')
+  const [newTitle, setNewTitle] = useState('')
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
   const [selectedFile, setSelectedFile] = useState()
@@ -102,7 +103,7 @@ function PostQuestion({ setOpenModal }) {
       formData.append('file', selectedFile, selectedFile.name)
     }
     formData.append('author', userData.user._id)
-    formData.append('title', 'hardcoded test title')
+    formData.append('title', newTitle)
     formData.append('content', newPost)
     formData.append('UI', selectedTags.UI)
     formData.append('Development', selectedTags.Development)
@@ -127,10 +128,15 @@ function PostQuestion({ setOpenModal }) {
       })
 
     setNewPost('')
+    setNewTitle('')
   }
 
   const handlePostChange = (event) => {
     setNewPost(event.target.value)
+  }
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
   }
 
   //Handle image select
@@ -245,14 +251,12 @@ function PostQuestion({ setOpenModal }) {
                         ></TagButton>
                       </div>
                     </li>
-                    <li>
-                      <a href="#">Add code</a>
-                    </li>
                   </ul>
-
                   <div className="postquestion-textform">
                     <TextForm
                       onSubmit={addPost}
+                      titleValue={newTitle}
+                      titleChange={handleTitleChange}
                       postValue={newPost}
                       postChange={handlePostChange}
                     />
@@ -265,21 +269,6 @@ function PostQuestion({ setOpenModal }) {
                   >
                     Cancel
                   </button>
-                  <ul className="list-inline post-actions">
-                    <li>
-                      <a href="#">
-                        <span className="glyphicon glyphicon-camera" />
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#" className="glyphicon glyphicon-user" />
-                    </li>
-
-                    <li>
-                      <a href="#" className="glyphicon glyphicon-map-marker" />
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
