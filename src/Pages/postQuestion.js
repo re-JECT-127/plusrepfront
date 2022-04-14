@@ -97,7 +97,7 @@ function PostQuestion({ setOpenModal }) {
     //If tag is selected, submit post. Otherwise error notification
     if (tagCheckBoolean) {
       const formData = new FormData()
-      
+
       if (selectedFile) {
         formData.append('file', selectedFile, selectedFile.name)
       }
@@ -223,7 +223,6 @@ function PostQuestion({ setOpenModal }) {
         <div className="modalContainer">
           <Notification message={notification} />
           <Error message={error} />
-
           <div>
             <div>
               <div>
@@ -231,19 +230,18 @@ function PostQuestion({ setOpenModal }) {
                   <ul>
                     <li>
                       <div>
-                        <input
-                          type="file"
-                          name="file"
-                          onChange={changeHandler}
-                        />
-
                         {isFilePicked ? (
                           <div>
                             <img src={image} alt="preview" />
                           </div>
                         ) : (
-                          <p>Select a file to show details</p>
+                          <p>Select image file</p>
                         )}
+                        <input
+                          type="file"
+                          name="file"
+                          onChange={changeHandler}
+                        />
                         <p>Select tags:</p>
                         <TagButton
                           tag={selectedTags.UI}
