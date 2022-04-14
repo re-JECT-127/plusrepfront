@@ -199,9 +199,24 @@ width: auto;
 }
 
 .postquestion-textform {
+  display: flex;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
+  font-family: Lato,sans-serif,Arial,Helvetica;
+  font-size: 18px;
+  font-weight: 200;
+  flex-direction: column;
+}
+.postquestion-buttonbox {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: Lato,sans-serif,Arial,Helvetica;
+  font-size: 18px;
+  font-weight: 200;
+  flex-direction: row;
 }
 
 .postquestion-textform textarea {

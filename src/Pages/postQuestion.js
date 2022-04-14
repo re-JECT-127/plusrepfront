@@ -270,15 +270,9 @@ function PostQuestion({ setOpenModal }) {
                       postValue={newPost}
                       postChange={handlePostChange}
                     />
+                    <button onClick={() => {setOpenModal(false)}} id="cancelBtn"> Cancel </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      setOpenModal(false)
-                    }}
-                    id="cancelBtn"
-                  >
-                    Cancel
-                  </button>
+
                 </div>
               </div>
             </div>
