@@ -36,8 +36,14 @@ const Post = ({ post }) => {
         <p className="object-text">{post.content}</p>
         <img class="object-img" src={post.image} alt="up yours"></img>
       </div>
+      <p>
+        {post.tags.UI === true && '#UI '} 
+        {post.tags.Development === true && '#Development '} 
+        {post.tags.Sales === true && '#Sales '} 
+        {post.tags.General === true && '#General '} 
+      </p>
       <div class="button-box">
-        <p className="object-text"> {getDate()}</p>
+        <p className="object-text">{getDate()} </p>
       </div>
     </div>
   )
