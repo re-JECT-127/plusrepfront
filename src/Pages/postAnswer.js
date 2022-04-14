@@ -79,7 +79,6 @@ function PostAnswer()  {
                         <MessageScroll userData={userData} post={state}/>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
