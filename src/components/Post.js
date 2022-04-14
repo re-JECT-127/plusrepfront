@@ -34,7 +34,7 @@ const Post = ({ post }) => {
       <h1 className="object-header">{post.title}</h1>
       <div className="object-content">
         <p className="object-text">{post.content}</p>
-        <img class="object-img" src={post.image} alt="up yours"></img>
+        <img class="object-img" src={post.image} alt={''}></img>
       </div>
       <p>
         {post.tags.UI === true && '#UI '} 

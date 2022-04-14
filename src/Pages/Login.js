@@ -72,18 +72,31 @@ function Login() {
         setPosts([])
       }}
     >
-      LOGOUT
+      LOG OUT
     </button>
   )
 
   const userInfo = () => (
     <div>
       <img
+        style={{
+          margin: 15,
+          borderRadius: 5,
+          justifyContent: 'center'
+        }}
         src={userData.user.picture}
         alt="profile"
         referrerPolicy="no-referrer"
       />
-      <p>{userData.user.name}</p>
+      <p
+        style={{
+          margin: 15,
+          fontSize: 20,
+          fontFamily: 'Lato,sans-serif,Arial,Helvetica'
+        }}
+      >
+        {userData.user.name}
+      </p>
     </div>
   )
 
