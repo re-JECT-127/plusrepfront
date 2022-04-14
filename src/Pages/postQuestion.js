@@ -1,8 +1,7 @@
 import '../App.css'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import TextForm from '../components/textForm'
 import postService from '../services/posts'
-import { useNavigate } from 'react-router-dom'
 import '../Modal.css'
 import Resizer from 'react-image-file-resizer'
 
@@ -87,37 +86,49 @@ function PostQuestion({ setOpenModal }) {
     event.preventDefault()
     console.log(newPost)
 
-    const formData = new FormData()
-
-    if (selectedFile) {
-      formData.append('file', selectedFile, selectedFile.name)
+    let tagCheckBoolean = false
+    for (let [key, value] of Object.entries(selectedTags)) {
+      console.log(key, value)
+      if (value) tagCheckBoolean = true
     }
-    formData.append('author', userData.user._id)
-    formData.append('title', 'hardcoded test title')
-    formData.append('content', newPost)
-    formData.append('UI', selectedTags.UI)
-    formData.append('Development', selectedTags.Development)
-    formData.append('Sales', selectedTags.Sales)
-    formData.append('General', selectedTags.General)
 
-    postService
-      .create(formData)
-      .then((returnedObject) => {
-        setNotification('Post successful!')
-        setTimeout(() => {
-          setNotification(null)
-          setOpenModal(false)
-          window.location.reload(false)
-        }, 3000)
-      })
-      .catch((error) => {
-        setError('Failed to send post')
-        setTimeout(() => {
-          setError(null)
-        }, 5000)
-      })
+    if (tagCheckBoolean) {
+      const formData = new FormData()
 
-    setNewPost('')
+      if (selectedFile) {
+        formData.append('file', selectedFile, selectedFile.name)
+      }
+      formData.append('author', userData.user._id)
+      formData.append('title', 'hardcoded test title')
+      formData.append('content', newPost)
+      formData.append('UI', selectedTags.UI)
+      formData.append('Development', selectedTags.Development)
+      formData.append('Sales', selectedTags.Sales)
+      formData.append('General', selectedTags.General)
+
+      postService
+        .create(formData)
+        .then((returnedObject) => {
+          setNotification('Post successful!')
+          setTimeout(() => {
+            setNotification(null)
+            setOpenModal(false)
+            window.location.reload(false)
+          }, 3000)
+        })
+        .catch((error) => {
+          setError('Failed to send post.')
+          setTimeout(() => {
+            setError(null)
+          }, 5000)
+        })
+      setNewPost('')
+    } else {
+      setError('Please select atleast one tag.')
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+    }
   }
 
   const handlePostChange = (event) => {
@@ -126,23 +137,22 @@ function PostQuestion({ setOpenModal }) {
 
   //Handle image select
   const changeHandler = (event) => {
-    
-//If image over 3MB, send error message
-    if (event.target.files[0].size > 3000000){
+    //If image over 3MB, send error message
+    if (event.target.files[0].size > 3000000) {
       setError('Image max. filesize is 3MB')
       setTimeout(() => {
         setError(null)
       }, 5000)
     } else {
-    //If image is large, resize it.
-    if (event.target.files[0].size < 500000) {
-      setSelectedFile(event.target.files[0])
-      onImageChange(event)
-    } else {
-      onChange(event)
+      //If image is large, resize it.
+      if (event.target.files[0].size < 500000) {
+        setSelectedFile(event.target.files[0])
+        onImageChange(event)
+      } else {
+        onChange(event)
+      }
+      setIsFilePicked(true)
     }
-    setIsFilePicked(true)
-  }
   }
 
   //Resize image
@@ -190,7 +200,7 @@ function PostQuestion({ setOpenModal }) {
     return <div className="error">{message}</div>
   }
 
-  //Successfull Post message
+  //Successful Message
   const Notification = ({ message }) => {
     if (message === null) {
       return null
