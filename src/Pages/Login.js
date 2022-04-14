@@ -62,13 +62,17 @@ function Login() {
   //Wipe local storage and userData
   const googleLogOut = () => (
     <button
+      className="sidebar-btn"
+      style={{
+        backgroundColor: 'lightgrey',
+      }}
       onClick={() => {
         window.localStorage.clear()
         setUserData(null)
         setPosts([])
       }}
     >
-      Logout
+      LOGOUT
     </button>
   )
 
@@ -91,7 +95,6 @@ function Login() {
   const handleSubmitButton = (event) => {
     event.preventDefault()
     setModalOpen(true)
-    //navigate('/postquestion')
   }
 
   const filterTags = (post) => {
@@ -140,10 +143,10 @@ function Login() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum
               <img
-              class="object-img"
-              src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
-              alt="up yours"
-            ></img>
+                class="object-img"
+                src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
+                alt="up yours"
+              ></img>
             </p>
           </div>
           <div class="button-box">
