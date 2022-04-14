@@ -3,11 +3,11 @@ import TopCommentsBox from '../components/Comments/TopCommentsBox'
 import MessageScroll from '../components/Comments/MessageScroll'
 // Main Context
 import { ContextProvider } from '../components/Comments/Context'
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import '../components/Comments/CommentsBox.css'
 
-function PostAnswer()  {
+function PostAnswer() {
   const [userData, setUserData] = useState(null)
 
   /* 2. Get the param */
@@ -19,12 +19,12 @@ function PostAnswer()  {
       setUserData(user)
     }
   }, [])
-  
-  const { state } = useLocation();
+
+  const { state } = useLocation()
   console.log('POST IN ANSWER', state)
 
   const getDate = () => {
-    if(state){
+    if (state) {
       const date = new Date(state.date)
       return date.toLocaleString()
     }
@@ -54,29 +54,35 @@ function PostAnswer()  {
                           className="img-fluid mb20"
                         />
                       </a>
-                      <h3>Help needed in Java</h3>
+                      <h3>{state.title}</h3>
                       <ul className="post-meta list-inline">
                         <li className="list-inline-item">
                           <i className="fa fa-user-circle-o" />{' '}
-                          <a href="#">John Doe</a>
                         </li>
                         <li className="list-inline-item">
                           <i className="fa fa-calendar-o" />{' '}
                           <a href="#">{state !== null ? getDate() : 'error'}</a>
                         </li>
                         <li className="list-inline-item">
-                          <i className="fa fa-tags" /> <a href="#">#Java</a>
+                          <i className="fa fa-tags" />{' '}
+                          <a href="#">
+                            {state.tags.UI === true && '#UI '}
+                            {state.tags.Development === true && '#Development '}
+                            {state.tags.Sales === true && '#Sales '}
+                            {state.tags.General === true && '#General '}
+                          </a>
                           &nbsp;
-                          <a href="#">#ProjektiPlusrep</a>
                         </li>
                       </ul>
-                      <p>
-                       {state !== null ? state.content : 'error'}
-                      </p>
+                      <p>{state !== null ? state.content : 'error'}</p>
                       <br />
                       <div className="ColHolder">
-                        <TopCommentsBox autoFocus={false} userData={userData} post={state} />
-                        <MessageScroll userData={userData} post={state}/>
+                        <TopCommentsBox
+                          autoFocus={false}
+                          userData={userData}
+                          post={state}
+                        />
+                        <MessageScroll userData={userData} post={state} />
                       </div>
                     </div>
                   </div>

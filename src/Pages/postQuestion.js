@@ -27,29 +27,28 @@ function PostQuestion({ setOpenModal }) {
     const [buttonColor, setButtonColor] = useState(tag)
 
     const handleTagChange = () => {
-        let newTags = selectedTags
-        if (text === 'UI') {
-          newTags.UI = !newTags.UI
-          setSelectedTags(newTags)
-          console.log(selectedTags)
-        }
-        if (text === 'Development') {
-          newTags.Development = !newTags.Development
-          setSelectedTags(newTags)
-          console.log(selectedTags)
-        }
-        if (text === 'Sales') {
-          newTags.Sales = !newTags.Sales
-          setSelectedTags(newTags)
-          console.log(selectedTags)
-        }
-        if (text === 'General') {
-          newTags.General = !newTags.General
-          setSelectedTags(newTags)
-          console.log(selectedTags)
-        }
+      let newTags = selectedTags
+      if (text === 'UI') {
+        newTags.UI = !newTags.UI
+        setSelectedTags(newTags)
+        console.log(selectedTags)
       }
-    
+      if (text === 'Development') {
+        newTags.Development = !newTags.Development
+        setSelectedTags(newTags)
+        console.log(selectedTags)
+      }
+      if (text === 'Sales') {
+        newTags.Sales = !newTags.Sales
+        setSelectedTags(newTags)
+        console.log(selectedTags)
+      }
+      if (text === 'General') {
+        newTags.General = !newTags.General
+        setSelectedTags(newTags)
+        console.log(selectedTags)
+      }
+    }
 
     return (
       <>
@@ -91,14 +90,14 @@ function PostQuestion({ setOpenModal }) {
     console.log(newPost)
 
     const formData = new FormData()
-    
+
     var taggers = JSON.stringify({
       UI: false,
       Development: false,
       Sales: false,
       General: false,
     })
-    
+
     if (selectedFile) {
       formData.append('file', selectedFile, selectedFile.name)
     }
@@ -113,11 +112,12 @@ function PostQuestion({ setOpenModal }) {
     postService
       .create(formData)
       .then((returnedObject) => {
-        setNotification('Post successful, redirecting back to home.')
+        setNotification('Post successful!')
         setTimeout(() => {
           setNotification(null)
-          navigate('/', { replace: true })
-        }, 5000)
+          setOpenModal(false)
+          window.location.reload(false)
+        }, 3000)
       })
       .catch((error) => {
         setError('Failed to send post')
@@ -205,7 +205,7 @@ function PostQuestion({ setOpenModal }) {
         <div className="modalContainer">
           <Notification message={notification} />
           <Error message={error} />
-          
+
           <div>
             <div>
               <div>
@@ -227,10 +227,22 @@ function PostQuestion({ setOpenModal }) {
                           <p>Select a file to show details</p>
                         )}
                         <p>Select tags:</p>
-                        <TagButton tag={selectedTags.UI} text={'UI'}></TagButton>
-                        <TagButton tag={selectedTags.Development} text={'Development'}></TagButton>
-                        <TagButton tag={selectedTags.Sales} text={'Sales'}></TagButton>
-                        <TagButton tag={selectedTags.General} text={'General'}></TagButton>
+                        <TagButton
+                          tag={selectedTags.UI}
+                          text={'UI'}
+                        ></TagButton>
+                        <TagButton
+                          tag={selectedTags.Development}
+                          text={'Development'}
+                        ></TagButton>
+                        <TagButton
+                          tag={selectedTags.Sales}
+                          text={'Sales'}
+                        ></TagButton>
+                        <TagButton
+                          tag={selectedTags.General}
+                          text={'General'}
+                        ></TagButton>
                       </div>
                     </li>
                     <li>
