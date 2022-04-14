@@ -103,7 +103,7 @@ form input[type="text"] {
     padding-left: 50px;
 }
 
-.fa-user-circle {
+.profilePic {
     position: absolute;
     font-size: 2.2rem;
     top: 0;
@@ -144,3 +144,7 @@ form input[type="text"] {
 .arrowReplies > i {
     margin-right: 10px;
 }
+
+.material-icons.red { color: red; }
+
+.material-icons.md-36 { font-size: 36px; }

@@ -3,7 +3,7 @@ import CommentsBox from './CommentsBox';
 import SubMessage from './SubMessage';
 //Main Context
 import {useMainContext} from './Context'
-import './CommentsBox.css'
+import './CommentsBox'
 
 const showReply = React.createContext();
 
@@ -47,7 +47,7 @@ function Message(props) {
         toggleLike = !toggleLike;
         if(toggleLike) {
             likes++;
-            likeIcon.current.style.color = "#4688de";
+            likeIcon.current.style.color = "red";
         } else {
             likes--;
             likeIcon.current.style.color = "gray";
@@ -81,14 +81,18 @@ function Message(props) {
 
     return (
         <>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"></link>
+
         <section className="messageContainer">
-            <div className="messageUser">{props.user}</div>
-            <i className="fas fa-user-circle"></i>
+            <div className="messageUser">{props.user}ANONYMOUS</div>
+            <section className="profilePic">
+            <span class="material-icons md-36">account_circle</span>
+            </section>
             <div className="messageText">{getDate()}<br></br>{props.message}</div>
             <section className="messageIconsContainer">
-                <i className="fas fa-thumbs-up" ref={likeIcon} onClick={likeComment}></i>
+                <span class="material-icons" ref={likeIcon} onClick={likeComment}>favorite</span>
                 <div ref={numLikes}>{props.likes}</div>
-                <i className="fas fa-thumbs-down"></i>
             </section>
          
         </section>

@@ -6,6 +6,7 @@ import PostQuestion from './postQuestion'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import TagButton from '../components/Profile/TagButton'
 
 function Login() {
   const [posts, setPosts] = useState([])
@@ -62,24 +63,42 @@ function Login() {
   //Wipe local storage and userData
   const googleLogOut = () => (
     <button
+      className="sidebar-btn"
+      style={{
+        backgroundColor: 'lightgrey',
+      }}
       onClick={() => {
         window.localStorage.clear()
         setUserData(null)
         setPosts([])
       }}
     >
-      Logout
+      LOG OUT
     </button>
   )
 
   const userInfo = () => (
     <div>
       <img
+        style={{
+          margin: 15,
+          marginTop: 100,
+          borderRadius: 5,
+          justifyContent: 'center',
+        }}
         src={userData.user.picture}
         alt="profile"
         referrerPolicy="no-referrer"
       />
-      <p>{userData.user.name}</p>
+      <p
+        style={{
+          margin: 15,
+          fontSize: 20,
+          fontFamily: 'Lato,sans-serif,Arial,Helvetica',
+        }}
+      >
+        {userData.user.name}
+      </p>
     </div>
   )
 
@@ -91,30 +110,40 @@ function Login() {
   const handleSubmitButton = (event) => {
     event.preventDefault()
     setModalOpen(true)
-    //navigate('/postquestion')
   }
 
   const filterTags = (post) => {
     let tagsBoolean = false
     if (post.tags) {
       if (post.tags.UI && userData.user.tags[0].UI) {
-        console.log('ui true')
         tagsBoolean = true
       }
       if (post.tags.Development && userData.user.tags[0].Development) {
-        console.log('dev true')
         tagsBoolean = true
       }
       if (post.tags.General && userData.user.tags[0].General) {
-        console.log('general true')
         tagsBoolean = true
       }
       if (post.tags.Sales && userData.user.tags[0].Sales) {
-        console.log('sales true')
         tagsBoolean = true
       }
     }
     return tagsBoolean
+  }
+
+  const createTagButtons = (tags) => {
+    const tagButtonArray = Object.entries(tags).filter((key) => {
+      if (
+        key[0] === 'UI' ||
+        key[0] === 'Development' ||
+        key[0] === 'Sales' ||
+        key[0] === 'General'
+      ) {
+        const newObj = { [key[0]]: key[1] }
+        return newObj
+      }
+    })
+    return tagButtonArray
   }
 
   return (
@@ -140,10 +169,10 @@ function Login() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum
               <img
-              class="object-img"
-              src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
-              alt="up yours"
-            ></img>
+                class="object-img"
+                src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
+                alt="up yours"
+              ></img>
             </p>
           </div>
           <div class="button-box">
@@ -167,6 +196,18 @@ function Login() {
             PROFILE{' '}
           </button>
         )}
+        {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
+        {userData !== null &&
+          createTagButtons(userData.user.tags[0]).map((tag) => (
+            <TagButton
+              className="sidebar-btn"
+              key={tag[0]}
+              text={tag[0]}
+              tag={tag}
+              userData={userData}
+              onTagChange={setUserData}
+            />
+          ))}
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
         {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}
