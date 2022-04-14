@@ -6,6 +6,7 @@ import PostQuestion from './postQuestion'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import TagButton from '../components/Profile/TagButton'
 
 function Login() {
   const [posts, setPosts] = useState([])
@@ -81,8 +82,9 @@ function Login() {
       <img
         style={{
           margin: 15,
+          marginTop: 100,
           borderRadius: 5,
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
         src={userData.user.picture}
         alt="profile"
@@ -92,7 +94,7 @@ function Login() {
         style={{
           margin: 15,
           fontSize: 20,
-          fontFamily: 'Lato,sans-serif,Arial,Helvetica'
+          fontFamily: 'Lato,sans-serif,Arial,Helvetica',
         }}
       >
         {userData.user.name}
@@ -114,23 +116,34 @@ function Login() {
     let tagsBoolean = false
     if (post.tags) {
       if (post.tags.UI && userData.user.tags[0].UI) {
-        console.log('ui true')
         tagsBoolean = true
       }
       if (post.tags.Development && userData.user.tags[0].Development) {
-        console.log('dev true')
         tagsBoolean = true
       }
       if (post.tags.General && userData.user.tags[0].General) {
-        console.log('general true')
         tagsBoolean = true
       }
       if (post.tags.Sales && userData.user.tags[0].Sales) {
-        console.log('sales true')
         tagsBoolean = true
       }
     }
     return tagsBoolean
+  }
+
+  const createTagButtons = (tags) => {
+    const tagButtonArray = Object.entries(tags).filter((key) => {
+      if (
+        key[0] === 'UI' ||
+        key[0] === 'Development' ||
+        key[0] === 'Sales' ||
+        key[0] === 'General'
+      ) {
+        const newObj = { [key[0]]: key[1] }
+        return newObj
+      }
+    })
+    return tagButtonArray
   }
 
   return (
@@ -183,6 +196,18 @@ function Login() {
             PROFILE{' '}
           </button>
         )}
+        {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
+        {userData !== null &&
+          createTagButtons(userData.user.tags[0]).map((tag) => (
+            <TagButton
+              className="sidebar-btn"
+              key={tag[0]}
+              text={tag[0]}
+              tag={tag}
+              userData={userData}
+              onTagChange={setUserData}
+            />
+          ))}
         {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
         {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}

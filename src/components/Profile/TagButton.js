@@ -28,7 +28,8 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
   
         console.log('newUserTags', newUserData.user.tags[0])
         userService.updateTags(newUserData.user.tags[0].id, newUserData.user.tags[0]).then((response) => {
-          console.log('response', response)
+          console.log('responseupdate tags', response)
+          window.location.reload(false)
         })
       },
       [onTagChange, tag, userData]
@@ -37,15 +38,11 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
     return (
       <>
         <button
+        className='tag-btn'
           style={{
             backgroundColor: buttonColor === true ? 'rgb(246, 202, 53)' : 'lightgrey',
-            margin: 2,
-            borderRadius: 4,
-            border: 'none',
-            padding: '7px  14px',
-            display: 'inline-block',
-            textAlign: 'center',
-  
+            fontWeight: buttonColor === true ? 'bold' : 'normal',
+
           }}
           onClick={() => {
             handleTagChange()
