@@ -7,6 +7,7 @@ import Resizer from 'react-image-file-resizer'
 
 function PostQuestion({ setOpenModal }) {
   const [newPost, setNewPost] = useState('')
+  const [newTitle, setNewTitle] = useState('')
   const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
   const [selectedFile, setSelectedFile] = useState()
@@ -86,15 +87,17 @@ function PostQuestion({ setOpenModal }) {
     event.preventDefault()
     console.log(newPost)
 
+    //Check if there is tag selected
     let tagCheckBoolean = false
     for (let [key, value] of Object.entries(selectedTags)) {
       console.log(key, value)
       if (value) tagCheckBoolean = true
     }
 
+    //If tag is selected, submit post. Otherwise error notification
     if (tagCheckBoolean) {
       const formData = new FormData()
-
+      
       if (selectedFile) {
         formData.append('file', selectedFile, selectedFile.name)
       }
@@ -123,6 +126,7 @@ function PostQuestion({ setOpenModal }) {
           }, 5000)
         })
       setNewPost('')
+      setNewTitle('')
     } else {
       setError('Please select atleast one tag.')
       setTimeout(() => {
@@ -133,6 +137,10 @@ function PostQuestion({ setOpenModal }) {
 
   const handlePostChange = (event) => {
     setNewPost(event.target.value)
+  }
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
   }
 
   //Handle image select
@@ -255,14 +263,12 @@ function PostQuestion({ setOpenModal }) {
                         ></TagButton>
                       </div>
                     </li>
-                    <li>
-                      <a href="#">Add code</a>
-                    </li>
                   </ul>
-
                   <div className="postquestion-textform">
                     <TextForm
                       onSubmit={addPost}
+                      titleValue={newTitle}
+                      titleChange={handleTitleChange}
                       postValue={newPost}
                       postChange={handlePostChange}
                     />
@@ -275,21 +281,6 @@ function PostQuestion({ setOpenModal }) {
                   >
                     Cancel
                   </button>
-                  <ul className="list-inline post-actions">
-                    <li>
-                      <a href="#">
-                        <span className="glyphicon glyphicon-camera" />
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#" className="glyphicon glyphicon-user" />
-                    </li>
-
-                    <li>
-                      <a href="#" className="glyphicon glyphicon-map-marker" />
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>

@@ -1,10 +1,18 @@
 import '../App.css'
 
-const TextForm = ({ onSubmit, postChange, postValue }) => {
+const TextForm = ({ onSubmit, postChange, postValue, titleValue, titleChange }) => {
   return (
     <form onSubmit={onSubmit}>
       <div>
         <h2>What's on your mind?</h2>
+        <header>
+        <input 
+        required 
+        placeholder="Title"
+        value={titleValue}
+        onChange={titleChange}
+        />
+        </header>
         <textarea
           required
           value={postValue}
