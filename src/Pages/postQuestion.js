@@ -22,8 +22,6 @@ function PostQuestion({ setOpenModal }) {
     General: false,
   })
 
-  const navigate = useNavigate()
-
   const TagButton = ({ tag, text }) => {
     const [buttonColor, setButtonColor] = useState(tag)
 
@@ -92,13 +90,6 @@ function PostQuestion({ setOpenModal }) {
 
     const formData = new FormData()
 
-    var taggers = JSON.stringify({
-      UI: false,
-      Development: false,
-      Sales: false,
-      General: false,
-    })
-
     if (selectedFile) {
       formData.append('file', selectedFile, selectedFile.name)
     }
@@ -141,7 +132,15 @@ function PostQuestion({ setOpenModal }) {
 
   //Handle image select
   const changeHandler = (event) => {
-    //If image is too large, resize it.
+    
+//If image over 3MB, send error message
+    if (event.target.files[0].size > 3000000){
+      setError('Image max. filesize is 3MB')
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+    } else {
+    //If image is large, resize it.
     if (event.target.files[0].size < 500000) {
       setSelectedFile(event.target.files[0])
       onImageChange(event)
@@ -149,6 +148,7 @@ function PostQuestion({ setOpenModal }) {
       onChange(event)
     }
     setIsFilePicked(true)
+  }
   }
 
   //Resize image
