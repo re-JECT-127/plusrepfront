@@ -15,7 +15,9 @@
   font-weight: 800;
 }
 
-
+.nolist {
+  list-style: none;
+}
 
 .thick-h{
   display: flex;
@@ -26,27 +28,39 @@
   display:flex;
   background-color: rgb(249, 249, 249);
   max-width: 65em;
-  height: 98vh;
+  height: 95vh;
   border: 15px;
-  padding: 5px;
-  margin: 5px;
+  margin-left: 8em;
+  margin-top: 1em;
   flex-direction: column;
   scrollbar-color: rgb(249, 249, 249) #e2e8f0;
   border-radius: 10px;
   overflow:auto;
   flex:1;
 }
+.big-box::-webkit-scrollbar {
+  display: none;
+}
+
 .register-box {
   display:flex;
   background-color: rgb(246, 202, 53);
-  width: 8em;
+  max-width: 7em;
   height: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   left: 0;
   flex-direction: column;
   font-family: Montserrat,sans-serif,Arial,Helvetica;
+}
+@media (max-width:970px) {
+	.register-box {
+    display: none;
+	}
+  .big-box{
+    margin-left: 0em;
+  }
 }
 
 .sidebar-btn{
@@ -94,7 +108,7 @@ height: auto;
 margin: 2em;
 padding: 2em;
 display: flex;
-box-shadow: 10px 10px 8px grey;
+box-shadow: 5px 5px 4px grey;
 font-family: Lato,sans-serif,Arial,Helvetica;
 font-size: 18px;
 font-weight: 200;
