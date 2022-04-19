@@ -6,8 +6,8 @@ const TextForm = ({ onSubmit, postChange, postValue, titleValue, titleChange }) 
       <div>
         <br></br>
         <h2>What's on your mind?</h2>
-        <header>
-        <input 
+        <header class = 'header'>
+        <input class = 'header'
         required 
         placeholder="Title"
         value={titleValue}
