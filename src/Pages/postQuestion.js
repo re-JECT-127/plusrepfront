@@ -102,7 +102,7 @@ function PostQuestion({ setOpenModal }) {
         formData.append('file', selectedFile, selectedFile.name)
       }
       formData.append('author', userData.user._id)
-      formData.append('title', 'hardcoded test title')
+      formData.append('title', newTitle)
       formData.append('content', newPost)
       formData.append('UI', selectedTags.UI)
       formData.append('Development', selectedTags.Development)
