@@ -230,7 +230,6 @@ function PostQuestion({ setOpenModal }) {
                   <ul>
                     <li>
                       <div>
-                        
                         {isFilePicked ? (
                           <div>
                             <img src={image} alt="preview" />
@@ -241,8 +240,10 @@ function PostQuestion({ setOpenModal }) {
                         <input
                           type="file"
                           name="file"
+                          id="upload" hidden
                           onChange={changeHandler}
                         />
+                        <label for="upload">Choose file</label>
                         <p>Select tags:</p>
                         <TagButton
                           tag={selectedTags.UI}
