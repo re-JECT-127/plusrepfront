@@ -67,6 +67,10 @@
     font-size: 20px;
     cursor: pointer;
   }
+
+  #submitButton {
+    background-color: dodgerblue;
+  }
   
   #cancelBtn {
     background-color: crimson;

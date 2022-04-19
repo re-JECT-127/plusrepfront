@@ -230,6 +230,7 @@ function PostQuestion({ setOpenModal }) {
                   <ul>
                     <li>
                       <div>
+                        
                         {isFilePicked ? (
                           <div>
                             <img src={image} alt="preview" />
