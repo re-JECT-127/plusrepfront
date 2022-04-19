@@ -53,6 +53,7 @@
   left: 0;
   flex-direction: column;
   font-family: Montserrat,sans-serif,Arial,Helvetica;
+  font-weight: 700;
 }
 @media (max-width:970px) {
 	.register-box {
@@ -67,7 +68,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 4em;
+  height: auto;
   border: 2px solid black;
   background-color:rgb(246, 202, 53);
   border-color:rgb(206, 168, 45);
@@ -85,7 +86,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 4em;
+  height: auto;
   border: 2px solid black;
   background-color:rgb(246, 202, 53);
   border-color:rgb(206, 168, 45);
@@ -113,7 +114,7 @@ font-family: Lato,sans-serif,Arial,Helvetica;
 font-size: 18px;
 font-weight: 200;
 /*make container have rounded edges*/
-border-radius: 10px;
+border-radius: 8px;
 width: auto;
 /*center container*/ 
 }
@@ -217,6 +218,7 @@ width: auto;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
+  justify-content: center;
   font-family: Lato,sans-serif,Arial,Helvetica;
   font-size: 18px;
   font-weight: 200;

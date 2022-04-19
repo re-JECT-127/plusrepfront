@@ -67,11 +67,24 @@
     font-size: 20px;
     cursor: pointer;
   }
+  
+  .submitButton {
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 
   #submitButton {
-    background-color: dodgerblue;
+    background-color: rgb(180, 217, 255);
+    width: 600px;
+    border-color: dodgerblue;
+    border: 1em;
+    
   }
   
   #cancelBtn {
-    background-color: crimson;
+    background-color: rgb(255, 184, 198);
+    border-color: crimson;
   }

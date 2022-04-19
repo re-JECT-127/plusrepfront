@@ -20,7 +20,7 @@ const TextForm = ({ onSubmit, postChange, postValue, titleValue, titleChange }) 
           onChange={postChange}
           rows="10"
         ></textarea>
-        <button id="submitButton">Submit</button>
+        <button class='subtmitButton' id="submitButton">Submit</button>
       </div>
     </form>
   )
