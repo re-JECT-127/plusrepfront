@@ -3,7 +3,7 @@ import userService from "../../services/users"
 
 //Button to select/deselect a tag.
 const TagButton = ({ tag, userData, onTagChange, text }) => {
-    const [buttonColor, setButtonColor] = useState(tag[1])
+    const [isSelected, setIsSelected] = useState(tag[1])
   
     const handleTagChange = useCallback(
       (event) => {
@@ -37,18 +37,27 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
   
     return (
       <>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      </link>
         <button
         className='tag-btn'
           style={{
-            backgroundColor: buttonColor === true ? 'rgb(246, 202, 53)' : 'lightgrey',
-            fontWeight: buttonColor === true ? 'bold' : 'normal',
-
+            backgroundColor: isSelected === true ? 'rgb(246, 202, 53)' : 'lightgrey',
+            fontWeight: isSelected === true ? 'bold' : 'normal',
+            
           }}
           onClick={() => {
             handleTagChange()
-            setButtonColor(!buttonColor)
+            setIsSelected(!isSelected)
           }}
         >
+          {isSelected === true ? 
+          <span class="material-icons">done</span>
+          : 
+          <span class="material-icons">close</span>}
+
           {text}
         </button>
       </>
