@@ -69,11 +69,12 @@
   }
 
   #submitButton {
-    background-color: dodgerblue;
+    background-color: rgb(180, 217, 255);
+    width: 600px;
   }
   
   #cancelBtn {
-    background-color: crimson;
+    background-color: rgb(255, 184, 198);
   }
 
   label{
