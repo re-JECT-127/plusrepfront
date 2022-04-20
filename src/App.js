@@ -17,8 +17,8 @@ return (
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/postQuestion" element={<PostQuestion />} />
-        <Route path="/postAnswer" element={<PostAnswer />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/postanswer/:_id" element={<PostAnswer/>} />
         </Routes>
       </HashRouter>
 );

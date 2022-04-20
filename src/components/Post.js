@@ -5,7 +5,7 @@ const Post = ({ post }) => {
 
   const handleClick = () => {
     console.log('CLICKED POST', post)
-    navigate('/postanswer', { state: post })
+    navigate(`/postanswer/${post._id}`, { state: post })
   }
 
   function changeBackground(e) {
@@ -37,10 +37,10 @@ const Post = ({ post }) => {
         <img class="object-img" src={post.image} alt={''}></img>
       </div>
       <p>
-        {post.tags.UI === true && '#UI '} 
-        {post.tags.Development === true && '#Development '} 
-        {post.tags.Sales === true && '#Sales '} 
-        {post.tags.General === true && '#General '} 
+        {post.tags.UI === true && '#UI '}
+        {post.tags.Development === true && '#Development '}
+        {post.tags.Sales === true && '#Sales '}
+        {post.tags.General === true && '#General '}
       </p>
       <div class="button-box">
         <p className="object-text">{getDate()} </p>

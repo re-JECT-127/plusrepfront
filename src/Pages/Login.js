@@ -5,7 +5,7 @@ import Post from '../components/Post'
 import PostQuestion from './postQuestion'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,  HashRouter as Router, Route, Link, useParams, Routes } from 'react-router-dom'
 import TagButton from '../components/Profile/TagButton'
 
 function Login() {
@@ -149,6 +149,7 @@ function Login() {
   return (
     <body class="flex-container">
       <div class="big-box">
+    
         {posts
           .slice(0)
           .reverse()
@@ -156,6 +157,7 @@ function Login() {
             if (filterTags(post))
               return <Post post={post} key={posts.indexOf(post)} />
           })}
+
 
         <div class="object-box">
           <h1 class="object-header"> LIPSUM </h1>
