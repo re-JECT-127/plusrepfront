@@ -46,6 +46,7 @@ function TopCommentsBox(props) {
         author: props.userData.user._id,
         content: message.current.value,
         post: props.post._id,
+        likes: 0
       }
       console.log('commentObj msg',message)
 

@@ -4,6 +4,7 @@ import SubMessage from './SubMessage';
 //Main Context
 import {useMainContext} from './Context'
 import './CommentsBox'
+import commentsService from '../../services/comments'
 
 const showReply = React.createContext();
 
@@ -45,19 +46,29 @@ function Message(props) {
 
     const likeComment = () => {
         toggleLike = !toggleLike;
+
+        const commentObject = {
+            likes: 0
+          }
+          
         if(toggleLike) {
             likes++;
             likeIcon.current.style.color = "red";
+            commentObject.likes = 1
+       
         } else {
             likes--;
             likeIcon.current.style.color = "gray";
+            commentObject.likes = -1
         }
         numLikes.current.innerHTML = likes;
         //Store this new value in the database
-        fetch("", {
-            method: "",
-            headers: {},
-            body: JSON.stringify({messageId: props.useKey, likes: likes})
+        console.log('obj', commentObject)
+
+        commentsService
+        .updateComment(props.useKey, commentObject)
+        .then((result) => {
+            console.log('res', result)
         })
     }
 

@@ -123,7 +123,8 @@ function MessageScroll(props) {
             <Message key={message._id} useKey={message._id}
             user={message.user} editable={message.editable}
             message={message.content} likes={message.likes}
-            replies={message.replies} date={message.date} />
+            replies={message.replies} date={message.date} 
+            post={message.post}/>
         ))}
         { messages.length > 9 && showBottomBar ? <div className="bottomBar" ref={setBottomBar}><div className="loader"></div></div> : null}
 

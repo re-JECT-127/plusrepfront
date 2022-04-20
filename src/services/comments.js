@@ -23,7 +23,13 @@ const create = (newObject) => {
   return request.then((response) => response.data)
 }
 
+const updateComment = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then((response) => response.data)
+}
 
 
 
-export default { getAll, create }
+
+
+export default { getAll, create, updateComment }
