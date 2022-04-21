@@ -46,15 +46,12 @@ function PostAnswer() {
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href="profile.css" />
         <div className="container">
+        <div className="object-box">
           <div className="row bootstrap snippets bootdeys">
             <div className="col-md-8 col-sm-12">
-              <div className="comment-wrapper">
-                <div className="panel panel-info">
-                  <div className="panel-body">
-                    <div className="vtimeline-content">
-                      <a href="#">
+
+                      <p>
                         {userData === null && <p>Please Log in to view this page</p>}
                         {post !== null && (
                           <img
@@ -63,19 +60,11 @@ function PostAnswer() {
                             className="img-fluid mb20"
                           />
                         )}
-                      </a>
+                      </p>
                       <h3>{post !== null && post.title}</h3>
-                      <ul className="post-meta list-inline">
-                        <li className="list-inline-item">
-                          <i className="fa fa-user-circle-o" />{' '}
-                        </li>
-                        <li className="list-inline-item">
-                          <i className="fa fa-calendar-o" />{' '}
-                          <a href="#">{post !== null && getDate()}</a>
-                        </li>
-                        <li className="list-inline-item">
-                          <i className="fa fa-tags" />{' '}
-                          <a href="#">
+
+                          <p>
+                            {post !== null && getDate()} &nbsp;
                             {post !== null && post.tags.UI === true && '#UI '}
                             {post !== null &&
                               post.tags.Development === true &&
@@ -86,10 +75,8 @@ function PostAnswer() {
                             {post !== null &&
                               post.tags.General === true &&
                               '#General '}
-                          </a>
-                          &nbsp;
-                        </li>
-                      </ul>
+                          </p>
+
                       <p>{post !== null && post.content}</p>
                       <br />
                       <div className="ColHolder">
@@ -108,9 +95,6 @@ function PostAnswer() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
       </ContextProvider>
     </>
   )
