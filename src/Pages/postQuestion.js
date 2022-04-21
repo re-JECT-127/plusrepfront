@@ -214,13 +214,8 @@ function PostQuestion({ setOpenModal }) {
       return null;
     }
 
-<<<<<<< Updated upstream
     return <div className="notification"><p>{message}</p></div>
   }
-=======
-    return <div className="notification">{message}</div>;
-  };
->>>>>>> Stashed changes
 
   return (
     <>
