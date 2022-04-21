@@ -52,9 +52,15 @@ const uploadImage = (image) => {
   return request.then((response) => response.data)
 }
 
+const deletePost = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`)
+  return request.then((response) => response.data)
+}
 
 
 
 
 
-export default { getAll, setToken, create, getSinglePost, uploadImage, getTags }
+
+
+export default { getAll, setToken, create, getSinglePost, uploadImage, getTags, deletePost }

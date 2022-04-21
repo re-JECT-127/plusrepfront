@@ -214,7 +214,7 @@ function PostQuestion({ setOpenModal }) {
       return null
     }
 
-    return <div className="notification">{message}</div>
+    return <div className="notification"><p>{message}</p></div>
   }
 
   return (

@@ -14,21 +14,26 @@ code {
 }
 
 .error {
-  color: red;
-  background: lightgrey;
-  font-size: 20px;
+  color: white;
+  background: red;
+  font-size: 30px;
   border-style: solid;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  text-align: center;
+  font-weight: bolder;
 }
 
 .notification {
-  color: rgb(246, 202, 53);
-  background: rgb(172, 165, 165);
-  font-size: 20px;
+  color: rgb(252, 252, 252);
+  background: rgb(7, 138, 18);
+  font-size: 30px;
   border-style: solid;
+  border-color: black;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  text-align: center;
+  font-weight: bolder;
 }
