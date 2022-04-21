@@ -1,114 +1,125 @@
-import React, {useRef, useState, useContext} from 'react';
-import CommentsBox from './CommentsBox';
-import SubMessage from './SubMessage';
-//Main Context
-import {useMainContext} from './Context'
+import React, { useRef, useState, useContext, useEffect } from 'react'
+import { useMainContext } from './Context'
 import './CommentsBox'
 import commentsService from '../../services/comments'
 
-const showReply = React.createContext();
+const showReply = React.createContext()
 
 export function useOpenReply() {
-    return useContext(showReply);
+  return useContext(showReply)
 }
 
 function Message(props) {
+  const [userData, setUserData] = useState(null)
 
-    const {setMessageUpdate} = useMainContext();
+  const { setMessageUpdate } = useMainContext()
 
-    const likeIcon = useRef();
-    const numLikes = useRef();
+  const likeIcon = useRef()
+  const numLikes = useRef()
 
-    const [arrowUp, setArrowUp] = useState(false);
-    const [openReply, setOpenReply] = useState(false);
+  const [arrowUp, setArrowUp] = useState(false)
+  const [openReply, setOpenReply] = useState(false)
 
-    //Toggled when CANCEL button and REPLY button are pressed
-    const changeOpenReply = () => {
-        setOpenReply(prevState => prevState = !prevState);
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUserData(user)
+
+      props.userLikes.forEach((userId) => {
+        if (userId === user.user._id) {
+          likeIcon.current.style.color = 'red'
+        }
+      })
+    }
+  }, [props.userLikes])
+
+  //Toggled when CANCEL button and REPLY button are pressed
+  const changeOpenReply = () => {
+    setOpenReply((prevState) => (prevState = !prevState))
+  }
+
+  //Toggle arrow up and down
+  let arrow = <i className="fas fa-caret-down"></i>
+
+  const changeArrow = () => {
+    setArrowUp((prevState) => (prevState = !prevState))
+  }
+
+  if (arrowUp) {
+    arrow = <i className="fas fa-caret-up"></i>
+  } else {
+    arrow = <i className="fas fa-caret-down"></i>
+  }
+
+  const likeComment = () => {
+    const commentObject = {
+      likes: 1,
+      user: userData.user._id,
     }
 
-    //Toggle arrow up and down
-    let arrow = <i className="fas fa-caret-down"></i>;
-    
-    const changeArrow = () => {
-        setArrowUp(prevState => prevState = !prevState);
-    }
+    commentsService
+      .updateComment(props.useKey, commentObject)
+      .then((result) => {
+        console.log('res', result)
+        numLikes.current.innerHTML = result.likes
+        if (result.userLikes.length === 0) {
+          likeIcon.current.style.color = 'grey'
+        }
 
-    if(arrowUp) {
-        arrow = <i className="fas fa-caret-up"></i>;
-    } else {
-        arrow = <i className="fas fa-caret-down"></i>
-    }
-
-    //Like message
-    let toggleLike = false;
-    let likes = props.likes;
-
-    const likeComment = () => {
-        toggleLike = !toggleLike;
-
-        const commentObject = {
-            likes: 0
+        result.userLikes.forEach((userId) => {
+          if (userId === userData.user._id) {
+            likeIcon.current.style.color = 'red'
+          } else {
+            likeIcon.current.style.color = 'grey'
           }
-          
-        if(toggleLike) {
-            likes++;
-            likeIcon.current.style.color = "red";
-            commentObject.likes = 1
-       
-        } else {
-            likes--;
-            likeIcon.current.style.color = "gray";
-            commentObject.likes = -1
-        }
-        numLikes.current.innerHTML = likes;
-        //Store this new value in the database
-        console.log('obj', commentObject)
-
-        commentsService
-        .updateComment(props.useKey, commentObject)
-        .then((result) => {
-            console.log('res', result)
         })
+      })
+  }
+
+  const deleteMessage = () => {
+    fetch('', {
+      method: '',
+      headers: {},
+      body: JSON.stringify({ messageId: props.useKey }),
+    }).then(() => {
+      setMessageUpdate([2, props.useKey])
+    })
+  }
+
+  const getDate = () => {
+    if (props.date) {
+      const date = new Date(props.date)
+      return date.toLocaleString()
     }
+  }
 
-    const deleteMessage = () => {
-        fetch("", {
-            method: "",
-            headers: {},
-            body: JSON.stringify({messageId:props.useKey})
-        }).then(() => {
-            setMessageUpdate([2, props.useKey])
-        })
-    }
+  return (
+    <>
+      <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+      ></link>
 
-    const getDate = () => {
-        if(props.date){
-          const date = new Date(props.date)
-          return date.toLocaleString()
-        }
-      }
-    
-
-    return (
-        <>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"></link>
-
-        <section className="messageContainer">
-            <div className="messageUser">{props.user}ANONYMOUS</div>
-            <section className="profilePic">
-            <span class="material-icons md-36">account_circle</span>
-            </section>
-            <div className="messageText">{getDate()}<br></br>{props.message}</div>
-            <section className="messageIconsContainer">
-                <span class="material-icons" ref={likeIcon} onClick={likeComment}>favorite</span>
-                <div ref={numLikes}>{props.likes}</div>
-            </section>
-         
+      <section className="messageContainer">
+        <div className="messageUser">ANONYMOUS</div>
+        <section className="profilePic">
+          <span class="material-icons md-36">account_circle</span>
         </section>
-        </>
-    );
+        <div className="messageText">
+          {getDate()}
+          <br></br>
+          {props.message}
+        </div>
+        <section className="messageIconsContainer">
+          <span class="material-icons" ref={likeIcon} onClick={likeComment}>
+            favorite
+          </span>
+          <div ref={numLikes}>{props.likes}</div>
+        </section>
+      </section>
+    </>
+  )
 }
 
-export default Message;
+export default Message
