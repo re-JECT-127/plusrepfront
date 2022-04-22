@@ -193,11 +193,6 @@ function Login() {
             SUBMIT QUESTION
           </button>
         )}
-        {userData !== null && (
-          <button class="sidebar-btn" onClick={handleProfileButton}>
-            PROFILE{' '}
-          </button>
-        )}
         {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
         {userData !== null &&
           createTagButtons(userData.user.tags[0]).map((tag) => (

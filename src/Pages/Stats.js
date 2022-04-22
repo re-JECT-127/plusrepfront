@@ -56,7 +56,13 @@ function Stats() {
           : 'Loading...'}
       </p>
 
-      <h2>Posts</h2>
+      <h2
+        style={{
+          fontSize: 20,
+        }}
+      >
+        Posts
+      </h2>
       <p
         style={{
           marginBottom: 10,
@@ -66,7 +72,13 @@ function Stats() {
           ? `Total number of questions/posts:  ${postStats}`
           : 'Loading...'}
       </p>
-      <h2>Comments</h2>
+      <h2
+        style={{
+          fontSize: 20,
+        }}
+      >
+        Comments
+      </h2>
       <p>
         {commentStats
           ? `Total number of comments/answers on posts:  ${commentStats}`
