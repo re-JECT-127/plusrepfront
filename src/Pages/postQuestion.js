@@ -239,7 +239,7 @@ function PostQuestion({ setOpenModal }) {
                   onChange={changeHandler}
                 />
 
-                <label for="upload">
+                <label className="label" for="upload">
                 <i class="material-icons">upload_file</i>
                   <p>Select image file</p>
                   </label>
