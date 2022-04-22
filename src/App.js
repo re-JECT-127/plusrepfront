@@ -7,6 +7,7 @@ import Login from './Pages/Login'
 import PostQuestion from './Pages/postQuestion'
 import PostAnswer from './Pages/postAnswer'
 import Feed from './Pages/Feed'
+import Stats from './Pages/Stats'
 import Test from './components/Comments/TopCommentsBox'
 
 function App() {
@@ -19,6 +20,8 @@ return (
         <Route path="/postQuestion" element={<PostQuestion />} />
         <Route path="/test" element={<Test />} />
         <Route path="/postanswer/:_id" element={<PostAnswer/>} />
+        <Route path="/stats" element={<Stats/>} />
+
         </Routes>
       </HashRouter>
 );
