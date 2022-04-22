@@ -30,7 +30,7 @@ function PostAnswer() {
     postService.getSinglePost(params._id).then((response) => {
       setPost(response)
 
-      //If this post is from the user logged in, show delete-button
+      //If this post is from the user logged in, show delete and solve buttons
       if (response.author.id === userData.user._id) {
         setShowDelete(true)
       }
@@ -52,6 +52,16 @@ function PostAnswer() {
         setNotification(null)
         navigate('/', { replace: true })
       }, 3000)
+    })
+  }
+
+  const handlePostSolved = (event) => {
+    event.preventDefault()
+    postService.setSolved(post._id).then((response) => {
+     setNotification('Post is now marked as solved.')
+     setTimeout(() => {
+       setNotification(null)
+     }, 4000)
     })
   }
 
@@ -116,6 +126,11 @@ function PostAnswer() {
                 </div>
               </div>
             </div>
+            {showDelete === true && (
+              <button className="solvePost-btn" onClick={handlePostSolved}>
+                POST SOLVED
+              </button>
+            )}
             {showDelete === true && (
               <button
                 className="deletePost-btn"

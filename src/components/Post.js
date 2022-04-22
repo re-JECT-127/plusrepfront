@@ -4,7 +4,6 @@ const Post = ({ post }) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    console.log('CLICKED POST', post)
     navigate(`/postanswer/${post._id}`, { state: post })
   }
 
@@ -14,7 +13,11 @@ const Post = ({ post }) => {
   }
 
   function changeBackgroundBack(e) {
-    e.currentTarget.style.border = '0px solid rgb(246, 202, 53)'
+    if (post.solved){
+      e.currentTarget.style.border = '5px solid rgb(0, 255, 136)'
+    } else {
+      e.currentTarget.style.border = '5px solid white'
+    }
   }
 
   const getDate = () => {
@@ -30,6 +33,7 @@ const Post = ({ post }) => {
       onClick={handleClick}
       onMouseEnter={changeBackground}
       onMouseLeave={changeBackgroundBack}
+      style={post.solved ? { border: '5px solid rgb(0, 255, 136)' } : {}}
     >
       <h1 className="object-header">{post.title}</h1>
       <div className="object-content">

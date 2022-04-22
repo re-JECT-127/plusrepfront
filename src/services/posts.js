@@ -2,11 +2,10 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3001/api/posts'
 const uploadImageUrl = 'http://localhost:3001/upload'
 const tagsUrl = 'http://localhost:3001/api/tags'
-
+const solvedUrl = 'http://localhost:3001/api/solved'
 
 
 let token = null
-
 
 const setToken = (newToken) => {
   token = `bearer ${newToken}`
@@ -37,7 +36,6 @@ const getTags = (id) => {
   const request = axios.get(`${tagsUrl}/${id}`, config)
 
   return request.then((response) => {
-   // console.log(response.data)
     return response.data
   })
 }
@@ -57,10 +55,27 @@ const deletePost = (id) => {
   return request.then((response) => response.data)
 }
 
+const updatePost = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then((response) => response.data)
+}
+
+const setSolved = (id) => {
+
+  const request = axios.put(`${solvedUrl}/${id}`, {solved: true})
+  return request.then((response) => response.data)
+}
 
 
 
-
-
-
-export default { getAll, setToken, create, getSinglePost, uploadImage, getTags, deletePost }
+export default {
+  getAll,
+  setToken,
+  create,
+  getSinglePost,
+  uploadImage,
+  getTags,
+  deletePost,
+  updatePost,
+  setSolved
+}
