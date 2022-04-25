@@ -5,7 +5,14 @@ import Post from '../components/Post'
 import PostQuestion from './postQuestion'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
-import { useNavigate,  HashRouter as Router, Route, Link, useParams, Routes } from 'react-router-dom'
+import {
+  useNavigate,
+  HashRouter as Router,
+  Route,
+  Link,
+  useParams,
+  Routes,
+} from 'react-router-dom'
 import TagButton from '../components/Profile/TagButton'
 
 function Login() {
@@ -144,7 +151,6 @@ function Login() {
   return (
     <body className="flex-container">
       <div className="big-box">
-    
         {posts
           .slice(0)
           .reverse()
@@ -153,30 +159,20 @@ function Login() {
               return <Post post={post} key={posts.indexOf(post)} />
           })}
 
-
-        <div className="object-box">
-          <h1 className="object-header"> LIPSUM </h1>
-          <div className="object-content">
-            <p className="object-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum
-              <img
-                className="object-img"
-                src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
-                alt="up yours"
-              ></img>
-            </p>
+        {userData === null && (
+          <div className="object-box">
+            <h1 className="object-header">
+              {' '}
+              Please login with your Google Account
+            </h1>
+            <div className="object-content">
+              <p className="object-text">
+                In this site you can ask questions and opinions from your
+                co-workers <strong>anonymous</strong>.
+              </p>
+            </div>
           </div>
-          <div className="button-box">
-            <input type="button" className="btn" value="Comment"></input>
-            <input type="button" className="btn" value="Share"></input>
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="register-box">
@@ -188,7 +184,9 @@ function Login() {
             SUBMIT QUESTION
           </button>
         )}
-        {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
+        {userData !== null && (
+          <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>
+        )}
         {userData !== null &&
           createTagButtons(userData.user.tags[0]).map((tag) => (
             <TagButton
