@@ -62,7 +62,7 @@
 .register-box {
   display:flex;
   background-color: rgb(246, 202, 53);
-  max-width: 7em;
+  max-width: 200px;
   height: 100%;
   position: fixed;
   z-index: 0;
