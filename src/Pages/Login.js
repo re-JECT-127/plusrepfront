@@ -5,21 +5,12 @@ import Post from '../components/Post'
 import PostQuestion from './postQuestion'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
-import {
-  useNavigate,
-  HashRouter as Router,
-  Route,
-  Link,
-  useParams,
-  Routes,
-} from 'react-router-dom'
 import TagButton from '../components/Profile/TagButton'
 
 function Login() {
   const [posts, setPosts] = useState([])
   const [userData, setUserData] = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
-  const navigate = useNavigate()
 
   //Fetch userData from local storage
   useEffect(() => {
