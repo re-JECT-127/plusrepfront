@@ -80,6 +80,52 @@ function PostAnswer() {
     )
   }
 
+  const googleLogOut = () => (
+    <button
+      className="sidebar-btn"
+      style={{
+        backgroundColor: 'lightgrey',
+      }}
+      onClick={() => {
+        window.localStorage.clear()
+        setUserData(null)
+       // setPosts([])
+      }}
+    >
+      LOG OUT
+    </button>
+  )
+
+  const handleBackButton = (event) => {
+    event.preventDefault()
+    navigate('/')
+  }
+
+  const userInfo = () => (
+    <div>
+      <img
+        style={{
+          margin: 15,
+          marginTop: 100,
+          borderRadius: 5,
+          justifyContent: 'center',
+        }}
+        src={userData.user.picture}
+        alt="profile"
+        referrerPolicy="no-referrer"
+      />
+      <p
+        style={{
+          margin: 15,
+          fontSize: 20,
+          fontFamily: 'Lato,sans-serif,Arial,Helvetica',
+        }}
+      >
+        {userData.user.name}
+      </p>
+    </div>
+  )
+
   return (
     <>
       <ContextProvider>
@@ -95,6 +141,8 @@ function PostAnswer() {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         ></link>
+
+
 
         <div className="container">
           <div className="object-box">
@@ -175,6 +223,21 @@ function PostAnswer() {
             )}
           </div>
         </div>
+
+
+        <div class="register-box">
+        <h1 class="thick-h">
+          PLUS<br></br>REP
+        </h1>
+        <button class="sidebar-btn" onClick={handleBackButton}>
+            BACK TO FEED
+          </button>
+          {userData !== null && userInfo()}
+          {googleLogOut()}
+</div>
+
+
+
       </ContextProvider>
     </>
   )
