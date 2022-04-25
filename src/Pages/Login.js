@@ -102,11 +102,6 @@ function Login() {
     </div>
   )
 
-  const handleProfileButton = (event) => {
-    event.preventDefault()
-    navigate('/profile')
-  }
-
   const handleSubmitButton = (event) => {
     event.preventDefault()
     setModalOpen(true)
@@ -147,8 +142,8 @@ function Login() {
   }
 
   return (
-    <body class="flex-container">
-      <div class="big-box">
+    <body className="flex-container">
+      <div className="big-box">
     
         {posts
           .slice(0)
@@ -159,10 +154,10 @@ function Login() {
           })}
 
 
-        <div class="object-box">
-          <h1 class="object-header"> LIPSUM </h1>
-          <div class="object-content">
-            <p class="object-text">
+        <div className="object-box">
+          <h1 className="object-header"> LIPSUM </h1>
+          <div className="object-content">
+            <p className="object-text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -171,25 +166,25 @@ function Login() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum
               <img
-                class="object-img"
+                className="object-img"
                 src="https://media.discordapp.net/attachments/694816042790289439/960851332221263902/upyours.jpg?width=608&height=608"
                 alt="up yours"
               ></img>
             </p>
           </div>
-          <div class="button-box">
-            <input type="button" class="btn" value="Comment"></input>
-            <input type="button" class="btn" value="Share"></input>
+          <div className="button-box">
+            <input type="button" className="btn" value="Comment"></input>
+            <input type="button" className="btn" value="Share"></input>
           </div>
         </div>
       </div>
 
-      <div class="register-box">
-        <h1 class="thick-h">
+      <div className="register-box">
+        <h1 className="thick-h">
           PLUS<br></br>REP
         </h1>
         {userData !== null && (
-          <button class="sidebar-btn" onClick={handleSubmitButton}>
+          <button className="sidebar-btn" onClick={handleSubmitButton}>
             SUBMIT QUESTION
           </button>
         )}

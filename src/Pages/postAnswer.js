@@ -13,6 +13,7 @@ function PostAnswer() {
   const [post, setPost] = useState(null)
   const [showDelete, setShowDelete] = useState(false)
   const [notification, setNotification] = useState(null)
+  const [solved, setSolved] = useState(false)
 
   let navigate = useNavigate()
   const params = useParams()
@@ -27,14 +28,16 @@ function PostAnswer() {
   }, [])
 
   useEffect(() => {
-    postService.getSinglePost(params._id).then((response) => {
-      setPost(response)
-
-      //If this post is from the user logged in, show delete and solve buttons
-      if (response.author.id === userData.user._id) {
-        setShowDelete(true)
-      }
-    })
+    if (userData) {
+      postService.getSinglePost(params._id).then((response) => {
+        setPost(response)
+        setSolved(response.solved)
+        //If this post is from the user logged in, show delete and solve buttons
+        if (response.author.id === userData.user._id) {
+          setShowDelete(true)
+        }
+      })
+    }
   }, [params, params._id, userData])
 
   const getDate = () => {
@@ -45,7 +48,7 @@ function PostAnswer() {
   }
 
   //Delete a post
-  const handleDelete = (event) => {
+  const handleDelete = () => {
     postService.deletePost(post._id).then((response) => {
       setNotification('Post deleted.')
       setTimeout(() => {
@@ -55,13 +58,14 @@ function PostAnswer() {
     })
   }
 
-  const handlePostSolved = (event) => {
-    event.preventDefault()
+  const handlePostSolved = () => {
     postService.setSolved(post._id).then((response) => {
-     setNotification('Post is now marked as solved.')
-     setTimeout(() => {
-       setNotification(null)
-     }, 4000)
+      setNotification('Post is now marked as solved.')
+      setPost(response)
+      setSolved(response.solved)
+      setTimeout(() => {
+        setNotification(null)
+      }, 4000)
     })
   }
 
@@ -87,6 +91,10 @@ function PostAnswer() {
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossOrigin="anonymous"
         />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        ></link>
 
         <div className="container">
           <div className="object-box">
@@ -98,7 +106,17 @@ function PostAnswer() {
                     <img src={post.image} alt="" className="img-fluid mb20" />
                   )}
                 </p>
-                <h3>{post !== null && post.title}</h3>
+                <h3>
+                  {post !== null && post.title}{' '}
+                  {solved === true && (
+                    <span
+                      class="material-icons"
+                      style={{ color: 'green', verticalAlign: 'middle' }}
+                    >
+                      check_circle
+                    </span>
+                  )}
+                </h3>
 
                 <p>
                   {post !== null && getDate()} &nbsp;
@@ -108,6 +126,7 @@ function PostAnswer() {
                     '#Development '}
                   {post !== null && post.tags.Sales === true && '#Sales '}
                   {post !== null && post.tags.General === true && '#General '}
+                  {post !== null && post.solved === true && '#Solved '}
                 </p>
 
                 <p>{post !== null && post.content}</p>
@@ -126,8 +145,18 @@ function PostAnswer() {
                 </div>
               </div>
             </div>
-            {showDelete === true && (
-              <button className="solvePost-btn" onClick={handlePostSolved}>
+            {showDelete === true && post.solved === false && (
+              <button
+                className="solvePost-btn"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      'Are you sure you wish to mark this post as solved?'
+                    )
+                  )
+                    handlePostSolved()
+                }}
+              >
                 POST SOLVED
               </button>
             )}

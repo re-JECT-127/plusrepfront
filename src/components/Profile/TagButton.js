@@ -54,9 +54,9 @@ const TagButton = ({ tag, userData, onTagChange, text }) => {
           }}
         >
           {isSelected === true ? 
-          <span class="material-icons">done</span>
+          <span className="material-icons">done</span>
           : 
-          <span class="material-icons">close</span>}
+          <span className="material-icons">close</span>}
 
           {text}
         </button>
