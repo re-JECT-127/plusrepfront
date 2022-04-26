@@ -230,7 +230,7 @@ function PostQuestion({ setOpenModal }) {
                     <img src={image} alt="preview" />
                   </div>
                 ) : (
-                  <div className="file-box">
+                  <div>
                   <input
                   type="file"
                   name="file"
