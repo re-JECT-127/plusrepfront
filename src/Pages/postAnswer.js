@@ -7,6 +7,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import '../components/Comments/CommentsBox.css'
 import postService from '../services/posts'
+import PostQuestion from './postQuestion'
+
 
 function PostAnswer() {
   const [userData, setUserData] = useState(null)
@@ -14,6 +16,8 @@ function PostAnswer() {
   const [showDelete, setShowDelete] = useState(false)
   const [notification, setNotification] = useState(null)
   const [solved, setSolved] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
+
 
   let navigate = useNavigate()
   const params = useParams()
@@ -89,7 +93,7 @@ function PostAnswer() {
       onClick={() => {
         window.localStorage.clear()
         setUserData(null)
-       // setPosts([])
+        // setPosts([])
       }}
     >
       LOG OUT
@@ -99,6 +103,10 @@ function PostAnswer() {
   const handleBackButton = (event) => {
     event.preventDefault()
     navigate('/')
+  }
+
+  const handleEditButton = (event) => {
+    setModalOpen(true)
   }
 
   const userInfo = () => (
@@ -141,8 +149,6 @@ function PostAnswer() {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         ></link>
-
-
 
         <div className="container">
           <div className="object-box">
@@ -210,6 +216,17 @@ function PostAnswer() {
             )}
             {showDelete === true && (
               <button
+                className="editPost-btn"
+                onClick={() => {
+                  handleEditButton()
+                }}
+              >
+                EDIT POST
+              </button>
+            )}
+
+            {showDelete === true && (
+              <button
                 className="deletePost-btn"
                 onClick={() => {
                   if (
@@ -224,19 +241,18 @@ function PostAnswer() {
           </div>
         </div>
 
-
         <div class="register-box">
-        <h1 class="thick-h">
-          PLUS<br></br>REP
-        </h1>
-        <button class="sidebar-btn" onClick={handleBackButton}>
+          <h1 class="thick-h">
+            PLUS<br></br>REP
+          </h1>
+          <button class="sidebar-btn" onClick={handleBackButton}>
             BACK TO FEED
           </button>
           {userData !== null && userInfo()}
           {googleLogOut()}
-</div>
+          {modalOpen && <PostQuestion setOpenModal={setModalOpen} isEdit={true} post={post} />}
 
-
+        </div>
 
       </ContextProvider>
     </>
