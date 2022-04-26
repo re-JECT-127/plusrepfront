@@ -151,9 +151,10 @@ function PostAnswer() {
         ></link>
 
         <div className="container">
+        <div className="big-box">
           <div className="object-box">
-            <div className="row bootstrap snippets bootdeys">
-              <div className="col-md-8 col-sm-12">
+
+
                 <p>
                   {userData === null && <p>Please Log in to view this page</p>}
                   {post !== null && (
@@ -197,8 +198,8 @@ function PostAnswer() {
                     <MessageScroll userData={userData} post={post} />
                   )}
                 </div>
-              </div>
-            </div>
+
+
             {showDelete === true && post.solved === false && (
               <button
                 className="solvePost-btn"
@@ -240,6 +241,7 @@ function PostAnswer() {
             )}
           </div>
         </div>
+                </div>
 
         <div class="register-box">
           <h1 class="thick-h">

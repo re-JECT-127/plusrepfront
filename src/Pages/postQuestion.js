@@ -275,19 +275,19 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
         <div className="modalContainer">
           <h1 className="thick-h">Submit a question</h1>
 
-          {isFilePicked ? (
-            <div>
-              <img src={image} alt="preview" />
-            </div>
-          ) : (
-            <div className="file-box">
-              <input
-                type="file"
-                name="file"
-                id="upload"
-                hidden
-                onChange={changeHandler}
-              />
+                {isFilePicked ? (
+                  <div>
+                    <img src={image} alt="preview" />
+                  </div>
+                ) : (
+                  <div>
+                  <input
+                  type="file"
+                  name="file"
+                  id="upload"
+                  hidden
+                  onChange={changeHandler}
+                />
 
               <label className="label" for="upload">
                 <i className="material-icons">upload_file</i>
