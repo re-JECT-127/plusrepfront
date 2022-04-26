@@ -215,7 +215,7 @@ function PostAnswer() {
                 POST SOLVED
               </button>
             )}
-            {showDelete === true && (
+            {showDelete === true && post.solved === false && (
               <button
                 className="editPost-btn"
                 onClick={() => {
