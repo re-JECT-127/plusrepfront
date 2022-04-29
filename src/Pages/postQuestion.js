@@ -280,20 +280,12 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
                     <img src={image} alt="preview" />
                   </div>
                 ) : (
-                  <div>
                   <input
                   type="file"
                   name="file"
                   id="upload"
-                  hidden
                   onChange={changeHandler}
                 />
-
-              <label className="label" for="upload">
-                <i className="material-icons">upload_file</i>
-                <p>Select image file</p>
-              </label>
-            </div>
           )}
 
           <ul>
