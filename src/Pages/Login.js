@@ -211,6 +211,7 @@ function Login() {
               onTagChange={setUserData}
             />
           ))}
+        {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
         {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}
       </div>
