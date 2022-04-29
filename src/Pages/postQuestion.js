@@ -275,18 +275,21 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
         <div className="modalContainer">
           <h1 className="thick-h">Submit a question</h1>
 
-                {isFilePicked ? (
-                  <div>
-                    <img src={image} alt="preview" />
-                  </div>
-                ) : (
-                  <input
-                  type="file"
-                  name="file"
-                  id="upload"
-                  onChange={changeHandler}
-                />
+          {isFilePicked ? (
+            <div>
+              <img src={image} alt="preview" />
+            </div>
+          ) : (
+            <input
+              type="file"
+              name="file"
+              id="upload"
+              onChange={changeHandler}
+            />
           )}
+
+          <Notification message={notification} />
+          <Error message={error} />
 
           <ul>
             <li>
@@ -303,6 +306,7 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
               ></TagButton>
             </li>
           </ul>
+
           <div className="postquestion-textform">
             <TextForm
               onSubmit={addPost}
@@ -311,6 +315,7 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
               postValue={newPost}
               postChange={handlePostChange}
             />
+
             <button
               onClick={() => {
                 setOpenModal(false)
@@ -321,8 +326,6 @@ function PostQuestion({ setOpenModal, isEdit, post }) {
               Cancel{' '}
             </button>
           </div>
-          <Notification message={notification} />
-          <Error message={error} />
         </div>
       </div>
     </>
