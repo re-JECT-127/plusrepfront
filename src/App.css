@@ -69,7 +69,8 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 4em;
+  height: auto;
+  overflow-x: auto;
 }
 .register-box {
   display:flex;
@@ -83,6 +84,7 @@
   flex-direction: column;
   font-family: Montserrat,sans-serif,Arial,Helvetica;
   font-weight: 700;
+  
 }
 .sidebar-btn{
   display: flex;
@@ -120,14 +122,17 @@
     box-shadow: 0px 0px 0px 0px;
     font-size: 18px;
   }
-  .tag-btn{
-    height: 3em;
-    border: 0px;
+  .phone-nav-box .tag-btn{
+    display: flex;
+    height: auto;
+    border: 2px solid black;
     padding: 0px 0px;
     margin: 0px;
     border-radius: 5px;
     box-shadow: 0px 0px 0px 0px;
-    font-size: 10px;
+    font-size: 14px;
+    justify-content: center;
+    text-align: center;
   }
 }
 
