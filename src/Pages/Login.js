@@ -140,10 +140,6 @@ function Login() {
   }
 
   return (
-<<<<<<< Updated upstream
-    <body className="flex-container">
-      <div className="big-box">
-=======
     <body class="flex-container">
       <div class="phone-nav-box">
       {userData !== null && (
@@ -151,12 +147,7 @@ function Login() {
             SUBMIT QUESTION
           </button>
         )}
-        {userData !== null && (
-          <button class="sidebar-btn" onClick={handleProfileButton}>
-            PROFILE{' '}
-          </button>
-        )}
-        {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
+        {userData !== null && <p>Filter Tags:</p>}
         {userData !== null &&
           createTagButtons(userData.user.tags[0]).map((tag) => (
             <TagButton
@@ -168,13 +159,11 @@ function Login() {
               onTagChange={setUserData}
             />
           ))}
-        {userData !== null && userInfo()}
         {userData === null ? googleLogin() : googleLogOut()}
         {modalOpen && <PostQuestion setOpenModal={setModalOpen} />}
       </div>
       <div class="big-box">
     
->>>>>>> Stashed changes
         {posts
           .slice(0)
           .reverse()
