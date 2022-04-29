@@ -147,11 +147,7 @@ function Login() {
             SUBMIT QUESTION
           </button>
         )}
-<<<<<<< HEAD
-        {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
-=======
         {userData !== null && <p>Filter Tags:</p>}
->>>>>>> 1564a04dffabdaf43a574db5fe00188f17e90fe5
         {userData !== null &&
           createTagButtons(userData.user.tags[0]).map((tag) => (
             <TagButton
