@@ -140,20 +140,11 @@ function Login() {
   }
 
   return (
-<<<<<<< Updated upstream
-    <body className="flex-container">
-      <div className="big-box">
-=======
     <body class="flex-container">
       <div class="phone-nav-box">
       {userData !== null && (
           <button class="sidebar-btn" onClick={handleSubmitButton}>
             SUBMIT QUESTION
-          </button>
-        )}
-        {userData !== null && (
-          <button class="sidebar-btn" onClick={handleProfileButton}>
-            PROFILE{' '}
           </button>
         )}
         {userData !== null && <p style={{ marginLeft: 10, marginTop: 50 }}>Filter Tags:</p>}
@@ -174,7 +165,6 @@ function Login() {
       </div>
       <div class="big-box">
     
->>>>>>> Stashed changes
         {posts
           .slice(0)
           .reverse()
